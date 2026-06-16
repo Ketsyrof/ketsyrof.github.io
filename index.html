@@ -544,6 +544,66 @@ function doToggleExp(btn) {
   btn.childNodes[0].textContent = open?'+ ':'− ';
 }
 
+function runLLMDemo() {
+  var topic = document.getElementById('llm-topic').value.trim();
+  if(!topic) { alert(isEN ? 'Please enter a topic' : 'Wpisz temat'); return; }
+  var tech = document.getElementById('llm-tech').value;
+  var out = document.getElementById('llm-out');
+  var preview = document.getElementById('llm-prompt-preview');
+  var promptText = document.getElementById('llm-prompt-text');
+
+  var prompts = {
+    basic:    topic,
+    context:  'Jesteś doświadczonym analitykiem produktowym w firmie fintech. Twoje analizy są zwięzłe, oparte na danych i zawierają konkretne rekomendacje.\n\nTemat: '+topic,
+    examples: 'Przeanalizuj poniższy temat produktowy.\n\nPrzykład dobrej analizy:\n- Problem: Wysoki churn w segmencie 25-35 lat\n- Przyczyna: Brak funkcji mobilnych\n- Rekomendacja: Priorytet na app redesign, cel: -15% churn w Q2\n\nTeraz przeanalizuj:\n'+topic,
+    cot:      'Przeanalizuj temat krok po kroku:\n1. Najpierw zdefiniuj problem\n2. Zidentyfikuj możliwe przyczyny\n3. Zaproponuj 2-3 hipotezy do przetestowania\n4. Wskaż metryki sukcesu\n\nTemat: '+topic
+  };
+
+  var techLabels = {
+    basic:    isEN ? '🔴 Basic (weak)' : '🔴 Podstawowy (słaby)',
+    context:  isEN ? '🟡 With context' : '🟡 Z kontekstem',
+    examples: isEN ? '🟢 With examples' : '🟢 Z przykładami',
+    cot:      isEN ? '🔵 Chain-of-Thought' : '🔵 Chain-of-Thought'
+  };
+
+  var promptLabel = isEN ? 'Prompt sent to model:' : 'Prompt wysłany do modelu:';
+  document.getElementById('llm-prompt-label').textContent = promptLabel;
+  promptText.textContent = prompts[tech];
+  preview.style.display = 'block';
+
+  out.innerHTML = '<p style="color:var(--c-muted);font-size:13px;padding:1rem 0">⏳ ' + (isEN ? 'Generating...' : 'Generuję...') + '</p>';
+
+  fetch('/.netlify/functions/chat', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      system: 'You are an experienced Product Manager. Be concise and practical. Respond in the same language as the prompt.',
+      messages: [{role:'user', content: prompts[tech]}]
+    })
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(data){
+    var reply = data.content && data.content[0] ? data.content[0].text : '—';
+    var qualityMap = {
+      basic:    {color:'#E24B4A', label: isEN?'Weak prompt — vague, no context':'Słaby prompt — ogólny, brak kontekstu'},
+      context:  {color:'#F59E0B', label: isEN?'Better — model knows its role':'Lepiej — model zna swoją rolę'},
+      examples: {color:'#0F6E56', label: isEN?'Good — examples guide the format':'Dobrze — przykłady wskazują format'},
+      cot:      {color:'#185FA5', label: isEN?'Best — structured step-by-step reasoning':'Najlepiej — ustrukturyzowane myślenie krok po kroku'}
+    };
+    var q = qualityMap[tech];
+    out.innerHTML = '<div style="padding:1rem 0">'
+      + '<div style="display:flex;align-items:center;gap:8px;margin-bottom:.75rem">'
+      + '<span style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--c-accent)">'+(isEN?'Response':'Odpowiedź')+'</span>'
+      + '<span style="font-size:11px;padding:2px 8px;border-radius:99px;background:'+q.color+'20;color:'+q.color+';font-weight:500">'+techLabels[tech]+'</span>'
+      + '</div>'
+      + '<div style="font-size:13px;color:var(--c-text);line-height:1.7;white-space:pre-wrap;margin-bottom:1rem">'+reply+'</div>'
+      + '<div style="font-size:12px;padding:8px 12px;border-radius:8px;background:'+q.color+'15;color:'+q.color+';border-left:3px solid '+q.color+'">💡 '+q.label+'</div>'
+      + '</div>';
+  })
+  .catch(function(){
+    out.innerHTML = '<p style="color:#E24B4A;font-size:13px;padding:1rem">'+(isEN?'Something went wrong.':'Coś poszło nie tak.')+'</p>';
+  });
+}
 function runAgentDoc(type) {
   var feature = document.getElementById('ag-feature').value.trim();
   if(!feature) { alert(isEN ? 'Please enter a feature name' : 'Wpisz nazwę funkcji'); return; }
