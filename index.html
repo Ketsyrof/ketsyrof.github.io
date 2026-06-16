@@ -151,7 +151,7 @@ footer{border-top:1px solid var(--c-border);text-align:center;padding:2rem;font-
 <div class="hero-exp-item"><strong>Bank Millennium</strong><br><span id="exp-mill">Automatyzacja procesów — redukcja nakładu pracy o <strong>2,5 etatu/mies.</strong> i wzrost efektywności operacyjnej.</span></div>
 <div class="hero-exp-item"><strong>BNP Paribas</strong><br><span id="exp-bnp">Optymalizacja zdalnego otwierania konta — skrócenie procesu o <strong>20 sekund</strong>.</span></div>
 <div class="hero-exp-item"><strong>PKO BP Finat</strong><br><span id="exp-pko">Rozwój usług dodatkowych i kampanii marketingowych opartych na segmentacji klientów.</span></div>
-<div class="hero-exp-item"><strong>ZenCard</strong><br><span id="exp-zen">Budowa działu od zera — <strong>800 tys. uczestników</strong> programu lojalnościowego.</span></div>    </div>
+<div class="hero-exp-item"><strong>ZenCard</strong><br><span id="exp-zen">Budowa działu od zera — <strong>800 tys. uczestników</strong> programu lojalnościowego.</span></div>      </div>
   </div>
   <div class="hero-contacts">
     <a class="contact-pill" href="mailto:******@gmail.com">
@@ -214,6 +214,34 @@ footer{border-top:1px solid var(--c-border);text-align:center;padding:2rem;font-
   </div>
 </section>
 
+<!-- RETENTION DEMO -->
+<section id="retention-demo">
+  <div class="section-label"><span id="lbl-ret-section">Demo — Analiza retencji użytkowników</span><span style="font-size:10px;font-weight:400;color:var(--c-muted)" id="lbl-ret-sub">wizualizacja kohortowa</span></div>
+  <div class="demo-wrap">
+    <div class="demo-top">
+      <div class="demo-sublabel" id="ret-sublabel">Cohort retention analysis</div>
+      <div class="demo-subtitle" id="ret-subtitle">Wybierz przedział czasowy i funkcję produktową aby zobaczyć wpływ na retencję</div>
+      <div class="demo-inputs">
+        <label id="ret-lbl-feature">Funkcja produktowa
+          <select id="ret-feature">
+            <option value="onboarding" id="ret-opt1">Nowy onboarding</option>
+            <option value="notification" id="ret-opt2">Push notifications</option>
+            <option value="dashboard" id="ret-opt3">Nowy dashboard</option>
+          </select>
+        </label>
+        <label id="ret-lbl-segment">Segment użytkowników
+          <select id="ret-segment">
+            <option value="all" id="ret-opt4">Wszyscy</option>
+            <option value="new" id="ret-opt5">Nowi użytkownicy</option>
+            <option value="returning" id="ret-opt6">Powracający</option>
+          </select>
+        </label>
+      </div>
+      <button class="demo-btn" id="ret-run" onclick="runRetention()">Generuj analizę →</button>
+    </div>
+    <div class="demo-bottom" id="ret-out"></div>
+  </div>
+</section>
 <!-- EXP -->
 <section id="exp">
   <div class="section-label">
