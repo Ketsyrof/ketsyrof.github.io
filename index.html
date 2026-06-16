@@ -391,6 +391,8 @@ function switchLang() {
     if(en) en.style.display = isEN?'':'none';
   });
   // demo elements (only if unlocked)
+  var np = document.getElementById('nav-pdf-label');
+  if(np) np.textContent = isEN ? 'Download CV' : 'Pobierz CV';
   // chat
   var ci = document.getElementById('chat-input');
   if(ci) ci.placeholder = isEN ? 'E.g. What is your experience with Agile?' : 'Np. Jakie masz doświadczenie z Agile?';
