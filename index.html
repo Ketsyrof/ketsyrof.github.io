@@ -632,8 +632,11 @@ function showDemoPassword(id, wrap, btn) {
   input.addEventListener('input', function() {
     if(this.value === '4444') {
       overlay.remove();
-      if(wrap) wrap.style.display = '';
-if(id === 'demo') doDemo();
+      if(id === 'demo') {
+        var g = document.getElementById('demo-gate');
+        if(g) { g.style.display = ''; }
+      } else {
+        if(wrap) wrap.style.display = '';
       }
       btn.textContent = '− zwiń';
       btn.setAttribute('data-open', 'true');
