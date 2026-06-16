@@ -242,6 +242,27 @@ footer{border-top:1px solid var(--c-border);text-align:center;padding:2rem;font-
     <div class="demo-bottom" id="ret-out"></div>
   </div>
 </section>
+<!-- AGENTS DEMO -->
+<section id="agents-demo">
+  <div class="section-label"><span id="lbl-ag-section">Demo — Agenci i workflow</span><span style="font-size:10px;font-weight:400;color:var(--c-muted)" id="lbl-ag-sub">AI generuje dokumentację produktową</span></div>
+  <div class="demo-wrap">
+    <div class="demo-top">
+      <div class="demo-sublabel" id="ag-sublabel">AI Documentation Workflow</div>
+      <div class="demo-subtitle" id="ag-subtitle">Wpisz nazwę funkcji produktowej — AI wygeneruje User Story, kryteria akceptacji i release note</div>
+      <div class="demo-inputs" style="grid-template-columns:1fr">
+        <label id="ag-lbl-feature">Nazwa funkcji
+          <input type="text" id="ag-feature" placeholder="np. Zdalne otwieranie konta" style="font-size:13px;padding:8px 12px;border:1px solid var(--c-border);border-radius:8px;background:var(--c-bg);color:var(--c-text);font-family:inherit;width:100%">
+        </label>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:4px">
+        <button class="demo-btn" id="ag-run-us" onclick="runAgentDoc('us')" style="font-size:13px;padding:8px 16px">📋 User Story</button>
+        <button class="demo-btn" id="ag-run-ac" onclick="runAgentDoc('ac')" style="font-size:13px;padding:8px 16px;background:var(--c-surface);color:var(--c-text);border:1px solid var(--c-border)">✅ Kryteria akceptacji</button>
+        <button class="demo-btn" id="ag-run-rn" onclick="runAgentDoc('rn')" style="font-size:13px;padding:8px 16px;background:var(--c-surface);color:var(--c-text);border:1px solid var(--c-border)">🚀 Release note</button>
+      </div>
+    </div>
+    <div class="demo-bottom" id="ag-out" style="min-height:60px"></div>
+  </div>
+</section>
 <!-- EXP -->
 <section id="exp">
   <div class="section-label">
