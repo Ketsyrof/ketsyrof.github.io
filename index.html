@@ -661,8 +661,14 @@ function showDemoPassword(id, wrap, btn) {
 initDemoToggles();
 function unlockDemo(val) {
   if(val === '4444') {
-    document.getElementById('demo-gate').style.display = 'none';
-    document.getElementById('demo-body').style.display = 'block';
+    var btn = document.querySelector('[data-id="demo"]');
+    if(btn) {
+      var gate = document.getElementById('demo-gate');
+      if(gate) gate.style.display = 'none';
+      document.getElementById('demo-body').style.display = 'block';
+      btn.textContent = '− zwiń';
+      btn.setAttribute('data-open', 'true');
+    }
     doDemo();
   } else if(val.length === 4) {
     document.getElementById('demo-err').style.display = 'block';
