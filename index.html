@@ -562,52 +562,102 @@ function switchLang() {
 var demoSections = ['demo', 'retention-demo', 'agents-demo', 'llm-demo'];
 
 function initDemoToggles() {
+  var demoSections = ['demo', 'retention-demo', 'agents-demo', 'llm-demo'];
+
   demoSections.forEach(function(id) {
     var section = document.getElementById(id);
     if(!section) return;
     var label = section.querySelector('.section-label');
     var wrap = section.querySelector('.demo-wrap');
-    var gate = section.querySelector('#demo-gate');
-    if(!label || (!wrap && !gate)) return;
+    if(!label) return;
 
     // hide content by default
     if(wrap) wrap.style.display = 'none';
-    if(gate) gate.style.display = 'none';
+    // also hide demo-gate for first demo
+    var gate = document.getElementById('demo-gate');
+    var body = document.getElementById('demo-body');
+    if(id === 'demo') {
+      if(gate) gate.style.display = 'none';
+      if(body) body.style.display = 'none';
+    }
 
     // add toggle button
     var btn = document.createElement('button');
     btn.className = 'toggle-all';
-    btn.setAttribute('data-open','false');
+    btn.setAttribute('data-open', 'false');
+    btn.setAttribute('data-id', id);
     btn.textContent = '+ rozwiń';
     btn.onclick = function() {
       var open = this.getAttribute('data-open') === 'true';
+      var sid = this.getAttribute('data-id');
+      var sec = document.getElementById(sid);
+      var w = sec ? sec.querySelector('.demo-wrap') : null;
+
       if(!open) {
-        if(id === 'demo') {
-          var dg = document.getElementById('demo-gate');
-          var db = document.getElementById('demo-body');
-          if(dg) dg.style.display = '';
-          // demo-body stays hidden until password
-        } else {
-          if(wrap) wrap.style.display = '';
-        }
-        this.textContent = '− zwiń';
-        this.setAttribute('data-open','true');
+        // show password prompt
+        showDemoPassword(sid, w, btn);
       } else {
-        if(id === 'demo') {
-          var dg2 = document.getElementById('demo-gate');
-          var db2 = document.getElementById('demo-body');
-          if(dg2) dg2.style.display = 'none';
-          if(db2) db2.style.display = 'none';
+        // collapse
+        if(sid === 'demo') {
+          var g = document.getElementById('demo-gate');
+          var b = document.getElementById('demo-body');
+          if(g) g.style.display = 'none';
+          if(b) b.style.display = 'none';
         } else {
-          if(wrap) wrap.style.display = 'none';
+          if(w) w.style.display = 'none';
         }
         this.textContent = '+ rozwiń';
-        this.setAttribute('data-open','false');
+        this.setAttribute('data-open', 'false');
+        // remove password overlay if exists
+        var overlay = sec.querySelector('.demo-pwd-overlay');
+        if(overlay) overlay.remove();
       }
     };
     label.appendChild(btn);
   });
 }
+
+function showDemoPassword(id, wrap, btn) {
+  var section = document.getElementById(id);
+  if(!section) return;
+
+  // remove existing overlay
+  var existing = section.querySelector('.demo-pwd-overlay');
+  if(existing) existing.remove();
+
+  var overlay = document.createElement('div');
+  overlay.className = 'demo-pwd-overlay';
+  overlay.style.cssText = 'background:var(--c-surface);border:1px solid var(--c-border);border-radius:16px;padding:2rem 1.5rem;text-align:center;margin-top:1rem';
+  overlay.innerHTML = '<div style="font-size:28px;margin-bottom:.5rem">🔒</div>'
+    + '<p style="font-size:13px;color:var(--c-muted);margin-bottom:1rem" id="pwd-label-'+id+'">' + (isEN ? 'This section is password protected' : 'Ta sekcja jest chroniona hasłem') + '</p>'
+    + '<input type="password" placeholder="••••" maxlength="4" id="pwd-input-'+id+'"'
+    + ' style="width:100px;text-align:center;font-size:18px;letter-spacing:.4em;padding:8px 12px;border:1.5px solid var(--c-border);border-radius:8px;font-family:inherit;display:block;margin:0 auto 8px">'
+    + '<span id="pwd-err-'+id+'" style="font-size:12px;color:#E24B4A;display:none">' + (isEN ? 'Incorrect password' : 'Nieprawidłowe hasło') + '</span>';
+
+  section.appendChild(overlay);
+
+  var input = document.getElementById('pwd-input-'+id);
+  input.focus();
+  input.addEventListener('input', function() {
+    if(this.value === '4444') {
+      overlay.remove();
+      if(id === 'demo') {
+        var g = document.getElementById('demo-gate');
+        if(g) { g.style.display = ''; }
+      } else {
+        if(wrap) wrap.style.display = '';
+      }
+      btn.textContent = '− zwiń';
+      btn.setAttribute('data-open', 'true');
+    } else if(this.value.length === 4) {
+      document.getElementById('pwd-err-'+id).style.display = 'block';
+    } else {
+      document.getElementById('pwd-err-'+id).style.display = 'none';
+    }
+  });
+}
+
+initDemoToggles();
 
 initDemoToggles();
 function unlockDemo(val) {
