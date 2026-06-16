@@ -563,7 +563,7 @@ function initDemoToggles() {
     if(!label) return;
 
     // hide content by default
-    if(wrap) wrap.style.display = 'none';
+if(wrap && id !== 'demo') wrap.style.display = 'none';
     // also hide demo-gate for first demo
     var gate = document.getElementById('demo-gate');
     var body = document.getElementById('demo-body');
