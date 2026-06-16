@@ -478,6 +478,45 @@ function switchLang() {
   });
   // demo elements (only if unlocked)
   // hero exp translations
+  // demo translations
+  var demoT = {
+    'ret-sublabel':    ['Cohort retention analysis','Cohort retention analysis'],
+    'ret-subtitle':    ['Wybierz przedział czasowy i funkcję produktową aby zobaczyć wpływ na retencję','Select a time range and product feature to see the impact on retention'],
+    'ret-lbl-feature': ['Funkcja produktowa','Product feature'],
+    'ret-lbl-segment': ['Segment użytkowników','User segment'],
+    'ret-opt1':        ['Nowy onboarding','New onboarding'],
+    'ret-opt2':        ['Push notifications','Push notifications'],
+    'ret-opt3':        ['Nowy dashboard','New dashboard'],
+    'ret-opt4':        ['Wszyscy','All users'],
+    'ret-opt5':        ['Nowi użytkownicy','New users'],
+    'ret-opt6':        ['Powracający','Returning users'],
+    'ret-run':         ['Generuj analizę →','Generate analysis →'],
+    'ag-sublabel':     ['AI Documentation Workflow','AI Documentation Workflow'],
+    'ag-subtitle':     ['Wpisz nazwę funkcji produktowej — AI wygeneruje User Story, kryteria akceptacji i release note','Enter a product feature name — AI will generate a User Story, acceptance criteria and release note'],
+    'ag-lbl-feature':  ['Nazwa funkcji','Feature name'],
+    'ag-run-us':       ['📋 User Story','📋 User Story'],
+    'ag-run-ac':       ['✅ Kryteria akceptacji','✅ Acceptance criteria'],
+    'ag-run-rn':       ['🚀 Release note','🚀 Release note'],
+    'llm-sublabel':    ['Prompt Engineering Playground','Prompt Engineering Playground'],
+    'llm-subtitle':    ['Wpisz temat i porównaj jak różne techniki promptowania wpływają na jakość odpowiedzi','Enter a topic and compare how different prompting techniques affect response quality'],
+    'llm-lbl-topic':   ['Temat','Topic'],
+    'llm-lbl-tech':    ['Technika promptowania','Prompting technique'],
+    'llm-opt1':        ['🔴 Podstawowy (słaby)','🔴 Basic (weak)'],
+    'llm-opt2':        ['🟡 Z kontekstem','🟡 With context'],
+    'llm-opt3':        ['🟢 Z przykładami','🟢 With examples'],
+    'llm-opt4':        ['🔵 Chain-of-Thought','🔵 Chain-of-Thought'],
+    'llm-run':         ['Wyślij prompt →','Send prompt →']
+  };
+  for(var did in demoT) {
+    var del = document.getElementById(did);
+    if(!del) continue;
+    if(del.tagName === 'LABEL') { del.childNodes[0].textContent = demoT[did][i]; continue; }
+    del.textContent = demoT[did][i];
+  }
+  var agFeat = document.getElementById('ag-feature');
+  if(agFeat) agFeat.placeholder = isEN ? 'e.g. Remote account opening' : 'np. Zdalne otwieranie konta';
+  var llmTopic = document.getElementById('llm-topic');
+  if(llmTopic) llmTopic.placeholder = isEN ? 'e.g. customer churn analysis' : 'np. analiza churnu klientów';
   var expT = {
     'exp-mill': ['Automatyzacja procesów — redukcja nakładu pracy o <strong>2,5 etatu/mies.</strong> i wzrost efektywności operacyjnej.','Process automation — reducing workload by <strong>2.5 FTEs/month</strong> and improving operational efficiency.'],
     'exp-bnp':  ['Optymalizacja zdalnego otwierania konta — skrócenie procesu o <strong>20 sekund</strong>.','Remote account opening optimisation — process shortened by <strong>20 seconds</strong>.'],
