@@ -558,6 +558,58 @@ function switchLang() {
   }
 }
 
+// Demo sections collapse
+var demoSections = ['demo', 'retention-demo', 'agents-demo', 'llm-demo'];
+
+function initDemoToggles() {
+  demoSections.forEach(function(id) {
+    var section = document.getElementById(id);
+    if(!section) return;
+    var label = section.querySelector('.section-label');
+    var wrap = section.querySelector('.demo-wrap');
+    var gate = section.querySelector('#demo-gate');
+    if(!label || (!wrap && !gate)) return;
+
+    // hide content by default
+    if(wrap) wrap.style.display = 'none';
+    if(gate) gate.style.display = 'none';
+
+    // add toggle button
+    var btn = document.createElement('button');
+    btn.className = 'toggle-all';
+    btn.setAttribute('data-open','false');
+    btn.textContent = '+ rozwiń';
+    btn.onclick = function() {
+      var open = this.getAttribute('data-open') === 'true';
+      if(!open) {
+        if(id === 'demo') {
+          var dg = document.getElementById('demo-gate');
+          var db = document.getElementById('demo-body');
+          if(dg) dg.style.display = '';
+          // demo-body stays hidden until password
+        } else {
+          if(wrap) wrap.style.display = '';
+        }
+        this.textContent = '− zwiń';
+        this.setAttribute('data-open','true');
+      } else {
+        if(id === 'demo') {
+          var dg2 = document.getElementById('demo-gate');
+          var db2 = document.getElementById('demo-body');
+          if(dg2) dg2.style.display = 'none';
+          if(db2) db2.style.display = 'none';
+        } else {
+          if(wrap) wrap.style.display = 'none';
+        }
+        this.textContent = '+ rozwiń';
+        this.setAttribute('data-open','false');
+      }
+    };
+    label.appendChild(btn);
+  });
+}
+
+initDemoToggles();
 function unlockDemo(val) {
   if(val === '4444') {
     document.getElementById('demo-gate').style.display = 'none';
