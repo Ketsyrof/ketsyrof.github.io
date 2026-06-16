@@ -263,6 +263,35 @@ footer{border-top:1px solid var(--c-border);text-align:center;padding:2rem;font-
     <div class="demo-bottom" id="ag-out" style="min-height:60px"></div>
   </div>
 </section>
+<!-- LLM DEMO -->
+<section id="llm-demo">
+  <div class="section-label"><span id="lbl-llm-section">Demo — Wiedza o modelach</span><span style="font-size:10px;font-weight:400;color:var(--c-muted)" id="lbl-llm-sub">prompt engineering w praktyce</span></div>
+  <div class="demo-wrap">
+    <div class="demo-top">
+      <div class="demo-sublabel" id="llm-sublabel">Prompt Engineering Playground</div>
+      <div class="demo-subtitle" id="llm-subtitle">Wpisz temat i porównaj jak różne techniki promptowania wpływają na jakość odpowiedzi</div>
+      <div class="demo-inputs" style="grid-template-columns:1fr 1fr">
+        <label id="llm-lbl-topic">Temat
+          <input type="text" id="llm-topic" placeholder="np. analiza churnu klientów" style="font-size:13px;padding:8px 12px;border:1px solid var(--c-border);border-radius:8px;background:var(--c-bg);color:var(--c-text);font-family:inherit;width:100%">
+        </label>
+        <label id="llm-lbl-tech">Technika promptowania
+          <select id="llm-tech">
+            <option value="basic" id="llm-opt1">🔴 Podstawowy (słaby)</option>
+            <option value="context" id="llm-opt2">🟡 Z kontekstem</option>
+            <option value="examples" id="llm-opt3">🟢 Z przykładami</option>
+            <option value="cot" id="llm-opt4">🔵 Chain-of-Thought</option>
+          </select>
+        </label>
+      </div>
+      <button class="demo-btn" id="llm-run" onclick="runLLMDemo()">Wyślij prompt →</button>
+    </div>
+    <div id="llm-prompt-preview" style="padding:0 1.5rem;display:none">
+      <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--c-muted);margin-bottom:6px" id="llm-prompt-label">Prompt wysłany do modelu:</div>
+      <div id="llm-prompt-text" style="font-size:12px;color:var(--c-muted);background:var(--c-surface);border:1px solid var(--c-border);border-radius:8px;padding:10px 14px;line-height:1.6;font-family:monospace;white-space:pre-wrap"></div>
+    </div>
+    <div class="demo-bottom" id="llm-out" style="min-height:60px"></div>
+  </div>
+</section>
 <!-- EXP -->
 <section id="exp">
   <div class="section-label">
