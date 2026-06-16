@@ -121,6 +121,10 @@ footer{border-top:1px solid var(--c-border);text-align:center;padding:2rem;font-
         <a id="nav-exp" onclick="navTo('exp')">Doświadczenie</a>
         <a id="nav-skills" onclick="navTo('skills')">Umiejętności</a>
         <a id="nav-certs" onclick="navTo('certs')">Certyfikaty</a>
+        <button onclick="downloadPDF()" style="cursor:pointer;background:none;border:1px solid var(--c-border);border-radius:99px;padding:4px 12px;font-size:13px;color:var(--c-muted);font-family:inherit;display:flex;align-items:center;gap:5px;transition:border-color .15s,color .15s" id="nav-pdf-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="13" height="13"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span id="nav-pdf-label">Pobierz CV</span>
+        </button>
       </div>
       <div class="lang-toggle">
         <span class="lang-label active" id="lbl-pl">PL</span>
@@ -155,10 +159,6 @@ footer{border-top:1px solid var(--c-border);text-align:center;padding:2rem;font-
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
       ******@gmail.com
     </a>
-    <button class="contact-pill" onclick="downloadPDF()" style="cursor:pointer;border:1px solid var(--c-border);background:none;font-family:inherit;font-size:13px">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="14" height="14"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-      <span id="pdf-btn-label">Pobierz CV</span>
-    </button>
     <span class="contact-pill">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg>
       <span id="phone-display">+48 535 ••• •••</span>
