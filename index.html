@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Daniel Forystek – Product Owner</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--c-accent:#185FA5;--c-accent-light:#E6F1FB;--c-text:#1a1a1a;--c-muted:#6b7280;--c-border:#e5e7eb;--c-bg:#fff;--c-surface:#f9fafb;--c-green:#0F6E56;--c-green-light:#E1F5EE}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--c-text);background:var(--c-bg);line-height:1.6;font-size:15px}
+a{color:var(--c-accent);text-decoration:none}
+a:hover{text-decoration:underline}
+nav{position:sticky;top:0;background:rgba(255,255,255,0.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--c-border);z-index:100;padding:0 2rem}
+.nav-inner{max-width:860px;margin:auto;display:flex;align-items:center;justify-content:space-between;height:52px}
+.nav-logo{font-weight:600;font-size:15px}
+.nav-right{display:flex;align-items:center;gap:1.5rem}
+.nav-links{display:flex;gap:1.5rem}
+.nav-links a{font-size:13px;color:var(--c-muted);cursor:pointer;transition:color .15s}
+.nav-links a:hover{color:var(--c-text);text-decoration:none}
+.lang-toggle{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:500;color:var(--c-muted);user-select:none}
+.toggle-track{position:relative;width:44px;height:24px;background:var(--c-border);border-radius:99px;cursor:pointer;transition:background .25s;flex-shrink:0}
+.toggle-track.en{background:var(--c-accent)}
+.toggle-thumb{position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:transform .25s;box-shadow:0 1px 3px rgba(0,0,0,.15)}
+.toggle-track.en .toggle-thumb{transform:translateX(20px)}
+.lang-label{min-width:20px;transition:color .2s}
+.lang-label.active{color:var(--c-text);font-weight:600}
+.hero{max-width:860px;margin:auto;padding:3rem 2rem 2rem}
+.hero-tag{display:inline-block;font-size:12px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--c-accent);background:var(--c-accent-light);padding:4px 12px;border-radius:99px;margin-bottom:1.2rem}
+.hero h1{font-size:clamp(2rem,5vw,3rem);font-weight:700;letter-spacing:-.04em;line-height:1.1;margin-bottom:1rem}
+.hero h1 span{color:var(--c-accent)}
+.hero-bio{font-size:16px;color:var(--c-muted);max-width:620px;line-height:1.75;margin-bottom:1.5rem}
+.hero-bio strong{color:var(--c-text);font-weight:500}
+.hero-contacts{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:1.5rem}
+.contact-pill{display:flex;align-items:center;gap:6px;padding:6px 14px;border:1px solid var(--c-border);border-radius:99px;font-size:13px;color:var(--c-text);transition:border-color .15s,background .15s}
+.contact-pill:hover{border-color:var(--c-accent);background:var(--c-accent-light);text-decoration:none;color:var(--c-accent)}
+.contact-pill svg{width:14px;height:14px;flex-shrink:0}
+section{max-width:860px;margin:auto;padding:2rem}
+.section-label{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--c-muted);margin-bottom:1.5rem;padding-bottom:.6rem;border-bottom:1px solid var(--c-border);display:flex;justify-content:space-between;align-items:center}
+.ai-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}
+.ai-card{background:var(--c-surface);border:1px solid var(--c-border);border-radius:12px;padding:1rem 1.25rem}
+.ai-card-head{display:flex;align-items:center;gap:8px;margin-bottom:.6rem}
+.ai-dot{width:8px;height:8px;border-radius:50%;background:var(--c-green);flex-shrink:0}
+.ai-card h4{font-size:13px;font-weight:600;color:var(--c-text)}
+.ai-card p{font-size:12px;color:var(--c-muted);line-height:1.55}
+.ai-badge{display:inline-block;font-size:11px;font-weight:500;color:var(--c-green);background:var(--c-green-light);padding:2px 8px;border-radius:99px;margin-top:.5rem}
+.demo-wrap{background:var(--c-bg);border:1px solid var(--c-border);border-radius:16px;overflow:hidden}
+.demo-top{background:var(--c-surface);padding:1.25rem 1.5rem;border-bottom:1px solid var(--c-border)}
+.demo-sublabel{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--c-accent);margin-bottom:.25rem;display:flex;align-items:center;gap:6px}
+.demo-sublabel::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--c-accent)}
+.demo-subtitle{font-size:13px;color:var(--c-muted);margin-bottom:1.1rem}
+.demo-inputs{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:1.1rem}
+.demo-inputs label{font-size:12px;color:var(--c-muted);display:flex;flex-direction:column;gap:5px;font-weight:500}
+.demo-inputs select,.demo-inputs input{font-size:13px;padding:8px 12px;border:1px solid var(--c-border);border-radius:8px;background:var(--c-bg);color:var(--c-text);font-family:inherit}
+.demo-btn{font-size:13px;font-weight:500;padding:9px 22px;border:none;border-radius:8px;background:#185FA5;color:#fff;cursor:pointer;font-family:inherit;transition:opacity .15s}
+.demo-btn:hover{opacity:.85}
+.demo-bottom{padding:1.25rem 1.5rem}
+.demo-table{width:100%;border-collapse:collapse;font-size:13px}
+.demo-table th{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--c-muted);padding:8px 12px;text-align:left;border-bottom:1px solid var(--c-border);background:var(--c-surface)}
+.demo-table th:not(:first-child){text-align:center}
+.demo-table td{padding:10px 12px;border-bottom:1px solid var(--c-border);color:var(--c-muted);text-align:center;vertical-align:middle}
+.demo-table td:first-child{text-align:left}
+.demo-table tr:last-child td{border-bottom:none}
+.demo-table tr.best td{background:#EBF3FB;color:#0C447C}
+.demo-table tr.best td:first-child{border-left:3px solid #185FA5}
+.exp-list{display:flex;flex-direction:column;position:relative;padding-left:1.5rem}
+.exp-list::before{content:'';position:absolute;left:5px;top:8px;bottom:8px;width:1px;background:var(--c-border)}
+.exp-item{position:relative;padding:0 0 2.2rem 1.5rem}
+.exp-item:last-child{padding-bottom:0}
+.exp-dot{position:absolute;left:-1.5rem;top:5px;width:10px;height:10px;border-radius:50%;background:var(--c-bg);border:2px solid var(--c-border)}
+.exp-dot.active{border-color:var(--c-accent);background:var(--c-accent)}
+.exp-meta{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:.2rem}
+.exp-company{font-weight:600;font-size:15px}
+.exp-date{font-size:12px;color:var(--c-muted);white-space:nowrap}
+.exp-role{font-size:13px;color:var(--c-muted);margin-bottom:.75rem}
+.exp-current{display:inline-block;font-size:11px;font-weight:500;color:var(--c-accent);background:var(--c-accent-light);padding:2px 8px;border-radius:99px;margin-left:8px;vertical-align:middle}
+.exp-toggle{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--c-accent);cursor:pointer;background:none;border:none;padding:0;margin-top:4px;font-family:inherit}
+.exp-toggle:hover{text-decoration:underline}
+.exp-content{overflow:hidden;transition:max-height .3s ease}
+.toggle-all{font-size:12px;color:var(--c-accent);cursor:pointer;background:none;border:none;padding:0;font-family:inherit}
+.toggle-all:hover{text-decoration:underline}
+.exp-bullets{list-style:none;display:flex;flex-direction:column;gap:5px}
+.exp-bullets li{font-size:13px;color:var(--c-muted);padding-left:1rem;position:relative;line-height:1.55}
+.exp-bullets li::before{content:'–';position:absolute;left:0;color:var(--c-border)}
+.exp-bullets li strong{color:var(--c-text);font-weight:500}
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1rem}
+.skill-card{background:var(--c-surface);border:1px solid var(--c-border);border-radius:12px;padding:1rem 1.25rem}
+.skill-card h4{font-size:13px;font-weight:600;margin-bottom:.7rem}
+.tags{display:flex;flex-wrap:wrap;gap:5px}
+.tag{font-size:11px;padding:3px 9px;border-radius:99px;border:1px solid var(--c-border);color:var(--c-muted);background:var(--c-bg)}
+.certs-list{display:flex;flex-direction:column}
+.cert-item{display:flex;justify-content:space-between;align-items:center;padding:.9rem 0;border-bottom:1px solid var(--c-border)}
+.cert-item:last-child{border-bottom:none}
+.cert-name{font-size:14px;font-weight:500}
+.cert-org{font-size:12px;color:var(--c-muted)}
+.cert-year{font-size:12px;color:var(--c-muted);white-space:nowrap;margin-left:1rem}
+footer{border-top:1px solid var(--c-border);text-align:center;padding:2rem;font-size:12px;color:var(--c-muted)}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">Daniel Forystek</div>
+    <div class="nav-right">
+      <div class="nav-links">
+        <a onclick="navTo('demo')">Demo</a>
+        <a onclick="navTo('ai')">AI Workflow</a>
+        <a id="nav-exp" onclick="navTo('exp')">Doświadczenie</a>
+        <a id="nav-skills" onclick="navTo('skills')">Umiejętności</a>
+        <a id="nav-certs" onclick="navTo('certs')">Certyfikaty</a>
+      </div>
+      <div class="lang-toggle">
+        <span class="lang-label active" id="lbl-pl">PL</span>
+        <div class="toggle-track" id="lang-toggle"><div class="toggle-thumb"></div></div>
+        <span class="lang-label" id="lbl-en">EN</span>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-tag" id="hero-tag">Product Owner · Warszawa</div>
+  <h1>Daniel <span>Forystek</span></h1>
+  <p class="hero-bio" id="hero-bio">Product Owner z <strong>ponad 5-letnim doświadczeniem</strong> w cyfrowych produktach finansowych. Na co dzień łączę klasyczny warsztat PO — backlog, roadmapa, User Stories — z <strong>aktywnym workflow opartym na AI</strong>: buduję prototypy w Claude Artifacts, projektuję agentów i piszę zapytania SQL z pomocą modeli językowych.</p>
+  <div class="hero-contacts">
+    <a class="contact-pill" href="mailto:******@gmail.com">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+      ******@gmail.com
+    </a>
+    <span class="contact-pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg>
+      <span id="phone-display">+48 535 ••• •••</span>
+      <span id="phone-eye-wrap" style="cursor:pointer;display:flex;align-items:center;margin-left:4px;color:var(--c-muted)">
+        <svg id="phone-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="14" height="14"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+      </span>
+    </span>
+    <a class="contact-pill" href="https://linkedin.com" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      LinkedIn
+    </a>
+  </div>
+</div>
+
+<!-- DEMO -->
+<section id="demo">
+  <div class="section-label">
+    <span id="lbl-demo-section">Demo — prototyp koncepcyjny</span>
+    <span style="font-size:10px;font-weight:400;color:var(--c-muted)" id="lbl-demo-sub">zbudowany w Claude Artifacts</span>
+  </div>
+  <div id="demo-gate" style="background:var(--c-surface);border:1px solid var(--c-border);border-radius:16px;padding:2.5rem 1.5rem;text-align:center">
+    <div style="font-size:36px;margin-bottom:.75rem">🔒</div>
+    <p style="font-size:14px;color:var(--c-muted);margin-bottom:1.25rem" id="gate-label">Ta sekcja jest chroniona hasłem</p>
+    <input id="demo-pwd" type="password" placeholder="••••" maxlength="4"
+      style="width:100px;text-align:center;font-size:20px;letter-spacing:.4em;padding:8px 12px;border:1.5px solid var(--c-border);border-radius:8px;font-family:inherit;display:block;margin:0 auto 8px"
+      oninput="unlockDemo(this.value)">
+    <span id="demo-err" style="font-size:12px;color:#E24B4A;display:none" id="gate-err">Nieprawidłowe hasło</span>
+  </div>
+  <div id="demo-body" style="display:none">
+    <div class="demo-wrap">
+      <div class="demo-top">
+        <div class="demo-sublabel" id="dsub">Inteligentny dobór kuriera</div>
+        <div class="demo-subtitle" id="dsubt">Dobierz kuriera optymalnego dla Twojej przesyłki</div>
+        <div class="demo-inputs">
+          <label id="dlw">Waga paczki (kg)<input type="number" id="d-weight" value="2" min="0.1" max="30" step="0.5" oninput="if(this.value.length>7)this.value=this.value.slice(0,7)"></label>
+          <label id="dld">Destynacja<select id="d-dest"><option value="krajowa" id="dopt1">Krajowa</option><option value="miedzynarodowa" id="dopt2">Międzynarodowa</option></select></label>
+          <label id="dlp">Priorytet<select id="d-prio"><option value="cena" id="dopt3">Najniższa cena</option><option value="czas" id="dopt4">Najszybsza dostawa</option><option value="balans" id="dopt5">Balans cena/czas</option></select></label>
+        </div>
+        <button class="demo-btn" id="demo-run" onclick="doDemo()">Porównaj kurierów →</button>
+      </div>
+      <div class="demo-bottom" id="demo-out"></div>
+    </div>
+  </div>
+</section>
+
+<!-- AI -->
+<section id="ai">
+  <div class="section-label"><span id="lbl-ai-section">AI Workflow</span></div>
+  <div class="ai-grid">
+    <div class="ai-card"><div class="ai-card-head"><div class="ai-dot"></div><h4 id="ai1t">Prototypowanie no-code</h4></div><p id="ai1b">Buduję interaktywne prototypy koncepcyjne samodzielnie w Claude Artifacts — bez angażowania developerów na etapie odkrywania.</p><span class="ai-badge">Claude Artifacts</span></div>
+    <div class="ai-card"><div class="ai-card-head"><div class="ai-dot"></div><h4 id="ai2t">Analiza danych z AI</h4></div><p id="ai2b">Piszę zapytania SQL i skrypty Python z pomocą LLM do analizy metryk produktowych i weryfikacji hipotez. Np. analiza retencji użytkowników po wdrożeniu nowej funkcji — segmentacja kohort, porównanie 30/60/90-dniowego powrotu.</p><span class="ai-badge">SQL · Python · LLM</span></div>
+    <div class="ai-card"><div class="ai-card-head"><div class="ai-dot"></div><h4 id="ai3t">Agenci i workflow</h4></div><p id="ai3b">Projektuję workflow oparte na AI do powtarzalnych zadań analitycznych i dokumentacyjnych — User Stories, release notes, analizy competitor.</p><span class="ai-badge">Claude · MCP · Copilot</span></div>
+    <div class="ai-card"><div class="ai-card-head"><div class="ai-dot"></div><h4 id="ai4t">Wiedza o modelach</h4></div><p id="ai4b">Praktyczna znajomość RAG, context window, walidacji outputów i projektowania promptów — stosuję to codziennie w pracy.</p><span class="ai-badge">RAG · prompt design · evals</span></div>
+  </div>
+</section>
+
+<!-- EXP -->
+<section id="exp">
+  <div class="section-label">
+    <span id="lbl-exp-section">Doświadczenie</span>
+    <button class="toggle-all" id="toggle-all-btn" onclick="doToggleAll()">+ rozwiń wszystko</button>
+  </div>
+  <div class="exp-list">
+    <div class="exp-item">
+      <div class="exp-dot active"></div>
+      <div class="exp-meta"><div class="exp-company">Bank Millennium <span class="exp-current" id="lbl-current">obecnie</span></div><div class="exp-date" id="date-mill">04.2025 – obecnie</div></div>
+      <div class="exp-role" id="role-mill">Product Owner · Warszawa</div>
+      <button class="exp-toggle" onclick="doToggleExp(this)">+ <span id="tog-mill">rozwiń</span></button>
+      <div class="exp-content" style="max-height:0">
+        <ul class="exp-bullets" style="margin-top:8px" id="bmill-pl"><li>Automatyzacja procesów — redukcja nakładu pracy o <strong>2,5 etatu miesięcznie</strong></li><li>Cyfryzacja usług dostępnych dotąd wyłącznie w oddziale</li><li>Optymalizacja backlogu i procesu delivery, skrócenie Time To Market</li><li>Zarządzanie roadmapą i priorytetyzacja wymagań we współpracy z interesariuszami</li><li>Ścisła współpraca z UX/UI, sprzedażą, ryzykiem i działem prawnym</li></ul>
+        <ul class="exp-bullets" style="margin-top:8px;display:none" id="bmill-en"><li>Process automation reducing workload by <strong>2.5 FTEs per month</strong></li><li>Digitalisation of branch-only services, increasing customer accessibility</li><li>Backlog and delivery optimisation, shortening Time to Market</li><li>Roadmap management and requirement prioritisation with stakeholders</li><li>Close collaboration with UX/UI, sales, risk and legal teams</li></ul>
+      </div>
+    </div>
+    <div class="exp-item">
+      <div class="exp-dot"></div>
+      <div class="exp-meta"><div class="exp-company">BNP Paribas Bank Polska</div><div class="exp-date" id="date-bnp">06.2023 – 03.2025</div></div>
+      <div class="exp-role" id="role-bnp">Product Owner · Warszawa</div>
+      <button class="exp-toggle" onclick="doToggleExp(this)">+ <span id="tog-bnp">rozwiń</span></button>
+      <div class="exp-content" style="max-height:0">
+        <ul class="exp-bullets" style="margin-top:8px" id="bbnp-pl"><li>Optymalizacja procesu otwierania konta — skrócenie czasu o <strong>20 sekund</strong></li><li>Usprawnienia customer journey: zdalna edycja danych, wyższy NPS</li><li>Tworzenie User Stories i kryteriów akceptacji w Jirze</li><li>Współpraca z UX/UI: prototypy, przepływy użytkowników, testy A/B</li><li>Planowanie i realizacja sprintów w Agile (Scrum / Kanban)</li></ul>
+        <ul class="exp-bullets" style="margin-top:8px;display:none" id="bbnp-en"><li>Reduced remote account opening time by <strong>20 seconds</strong></li><li>Customer journey improvements: remote data editing, higher NPS</li><li>Authored User Stories and acceptance criteria in Jira</li><li>Collaborated with UX/UI on prototypes, user flows and A/B tests</li><li>Sprint planning and delivery in Agile (Scrum / Kanban)</li></ul>
+      </div>
+    </div>
+    <div class="exp-item">
+      <div class="exp-dot"></div>
+      <div class="exp-meta"><div class="exp-company">PKO Bank Polski – Finat Sp. z o.o.</div><div class="exp-date" id="date-pko">08.2020 – 03.2023</div></div>
+      <div class="exp-role" id="role-pko">Product Development · Warszawa</div>
+      <button class="exp-toggle" onclick="doToggleExp(this)">+ <span id="tog-pko">rozwiń</span></button>
+      <div class="exp-content" style="max-height:0">
+        <ul class="exp-bullets" style="margin-top:8px" id="bpko-pl"><li>Wdrożenie automatycznych kampanii marketingowych zwiększających zaangażowanie klientów</li><li>Rozwój usług dla segmentu SME i programów lojalnościowych</li><li>Definiowanie metryk produktowych i monitorowanie efektów kampanii</li></ul>
+        <ul class="exp-bullets" style="margin-top:8px;display:none" id="bpko-en"><li>Launched automated marketing campaigns boosting customer engagement</li><li>Developed SME services and payment-card loyalty programmes</li><li>Defined product metrics and monitored campaign outcomes</li></ul>
+      </div>
+    </div>
+    <div class="exp-item">
+      <div class="exp-dot"></div>
+      <div class="exp-meta"><div class="exp-company">ZenCard Sp. z o.o.</div><div class="exp-date" id="date-zen">09.2017 – 07.2020</div></div>
+      <div class="exp-role" id="role-zen">Dyrektor Działu Sprzedaży i Obsługi Klienta · Warszawa</div>
+      <button class="exp-toggle" onclick="doToggleExp(this)">+ <span id="tog-zen">rozwiń</span></button>
+      <div class="exp-content" style="max-height:0">
+        <ul class="exp-bullets" style="margin-top:8px" id="bzen-pl"><li>Budowa działu od zera; zdobycie bazy <strong>800 tys. uczestników</strong> programu lojalnościowego</li><li>Strategia pozyskiwania klientów, onboarding i współpraca cross-funkcyjna z IT</li></ul>
+        <ul class="exp-bullets" style="margin-top:8px;display:none" id="bzen-en"><li>Built the department from scratch; grew loyalty programme to <strong>800,000 members</strong></li><li>Customer acquisition strategy, onboarding and cross-functional collaboration with IT</li></ul>
+      </div>
+    </div>
+    <div class="exp-item">
+      <div class="exp-dot"></div>
+      <div class="exp-meta"><div class="exp-company">eService · Medicover · TUI Poland · Netia · CANAL+</div><div class="exp-date">2007 – 2017</div></div>
+      <div class="exp-role" id="role-older">Kierownicze role: obsługa klienta, contact center, telesprzedaż</div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label"><span id="lbl-skills-section">Umiejętności</span></div>
+  <div class="skills-grid">
+    <div class="skill-card"><h4 id="sk1t">Zarządzanie produktem</h4><div class="tags"><span class="tag">Backlog &amp; roadmapa</span><span class="tag">User Stories / AC</span><span class="tag">Agile / Scrum / Kanban</span><span class="tag" id="skt-prio">Priorytetyzacja</span><span class="tag" id="skt-met">Metryki produktowe</span></div></div>
+    <div class="skill-card"><h4>AI &amp; data</h4><div class="tags"><span class="tag">Claude / MCP</span><span class="tag">Prompt engineering</span><span class="tag">RAG · context window</span><span class="tag">SQL</span></div></div>
+    <div class="skill-card"><h4 id="sk3t">Narzędzia</h4><div class="tags"><span class="tag">JIRA</span><span class="tag">Confluence</span><span class="tag">Dynatrace / Grafana</span><span class="tag">CRM (Pipedrive)</span><span class="tag">Excel / MS Office</span></div></div>
+    <div class="skill-card"><h4 id="sk4t">Miękkie</h4><div class="tags"><span class="tag" id="skt-comm">Komunikacja z zarządem</span><span class="tag" id="skt-biz">Orientacja biznesowa</span><span class="tag" id="skt-team">Praca zespołowa</span><span class="tag" id="skt-flex">Elastyczność</span></div></div>
+  </div>
+</section>
+
+<!-- CERTS -->
+<section id="certs">
+  <div class="section-label"><span id="lbl-certs-section">Certyfikaty &amp; szkolenia</span></div>
+  <div class="certs-list">
+    <div class="cert-item"><div><div class="cert-name">Professional Scrum Product Owner II (PSPO II)</div><div class="cert-org">Scrum.org</div></div><div class="cert-year">03.2026</div></div>
+    <div class="cert-item"><div><div class="cert-name">Professional Scrum Product Owner (PSPO I)</div><div class="cert-org">Scrum.org</div></div><div class="cert-year">02.2024</div></div>
+    <div class="cert-item"><div><div class="cert-name" id="cert-red">Red Team Specialist (Linux, Cyberbezpieczeństwo)</div><div class="cert-org">TechDX</div></div><div class="cert-year">09.2023</div></div>
+    <div class="cert-item"><div><div class="cert-name" id="cert-iso">ISO 27001 / ISO 9001 – Auditor i Pełnomocnik Zarządu</div><div class="cert-org">Mastere</div></div><div class="cert-year">11.2022</div></div>
+    <div class="cert-item"><div><div class="cert-name" id="cert-pm">Zarządzanie projektami</div><div class="cert-org">Akademia PARP</div></div><div class="cert-year">05.2020</div></div>
+  </div>
+</section>
+
+<footer>© 2026 Daniel Forystek · ******@gmail.com</footer>
+
+<script>
+var isEN = false;
+var allExp = false;
+
+var T = {
+  'hero-tag':     ['Product Owner · Warszawa','Product Owner · Warsaw, Poland'],
+  'hero-bio':     ['Product Owner z <strong>ponad 5-letnim doświadczeniem</strong> w cyfrowych produktach finansowych. Na co dzień łączę klasyczny warsztat PO — backlog, roadmapa, User Stories — z <strong>aktywnym workflow opartym na AI</strong>: buduję prototypy w Claude Artifacts, projektuję agentów i piszę zapytania SQL z pomocą modeli językowych.','Product Owner with <strong>5+ years</strong> in digital financial products. I combine classic PO skills — backlog, roadmap, User Stories — with an <strong>active AI-driven workflow</strong>: building prototypes in Claude Artifacts, designing agents, and writing SQL queries with LLM support.'],
+  'nav-exp':      ['Doświadczenie','Experience'],
+  'nav-skills':   ['Umiejętności','Skills'],
+  'nav-certs':    ['Certyfikaty','Certifications'],
+  'lbl-demo-section':['Demo — prototyp koncepcyjny','Demo — concept prototype'],
+  'lbl-demo-sub': ['zbudowany w Claude Artifacts','built in Claude Artifacts'],
+  'gate-label':   ['Ta sekcja jest chroniona hasłem','This section is password protected'],
+  'gate-err':     ['Nieprawidłowe hasło','Incorrect password'],
+  'lbl-ai-section':['AI Workflow','AI Workflow'],
+  'ai1t':['Prototypowanie no-code','No-code prototyping'],
+  'ai1b':['Buduję interaktywne prototypy koncepcyjne samodzielnie w Claude Artifacts — bez angażowania developerów na etapie odkrywania.','I build interactive concept prototypes independently in Claude Artifacts — no dev involvement needed at discovery stage.'],
+  'ai2t':['Analiza danych z AI','AI-assisted data analysis'],
+  'ai2b':['Piszę zapytania SQL i skrypty Python z pomocą LLM do analizy metryk produktowych i weryfikacji hipotez. Np. analiza retencji użytkowników po wdrożeniu nowej funkcji — segmentacja kohort, porównanie 30/60/90-dniowego powrotu.','I write SQL queries and Python scripts with LLM support to analyse product metrics and validate hypotheses. E.g. user retention analysis after a feature launch — cohort segmentation, 30/60/90-day return rates.'],
+  'ai3t':['Agenci i workflow','Agents & workflows'],
+  'ai3b':['Projektuję workflow oparte na AI do powtarzalnych zadań analitycznych i dokumentacyjnych — User Stories, release notes, analizy competitor.','I design AI-based workflows for repetitive analytical and documentation tasks — User Stories, release notes, competitor analyses.'],
+  'ai4t':['Wiedza o modelach','LLM knowledge'],
+  'ai4b':['Praktyczna znajomość RAG, context window, walidacji outputów i projektowania promptów — stosuję to codziennie w pracy.','Practical knowledge of RAG, context windows, output validation and prompt engineering — applied daily in real work.'],
+  'lbl-exp-section':['Doświadczenie','Experience'],
+  'toggle-all-btn':['+ rozwiń wszystko','+ expand all'],
+  'lbl-current':  ['obecnie','present'],
+  'date-mill':    ['04.2025 – obecnie','Apr 2025 – present'],
+  'role-mill':    ['Product Owner · Warszawa','Product Owner · Warsaw'],
+  'tog-mill':     ['rozwiń','expand'],
+  'date-bnp':     ['06.2023 – 03.2025','Jun 2023 – Mar 2025'],
+  'role-bnp':     ['Product Owner · Warszawa','Product Owner · Warsaw'],
+  'tog-bnp':      ['rozwiń','expand'],
+  'date-pko':     ['08.2020 – 03.2023','Aug 2020 – Mar 2023'],
+  'role-pko':     ['Product Development · Warszawa','Product Development · Warsaw'],
+  'tog-pko':      ['rozwiń','expand'],
+  'date-zen':     ['09.2017 – 07.2020','Sep 2017 – Jul 2020'],
+  'role-zen':     ['Dyrektor Działu Sprzedaży i Obsługi Klienta · Warszawa','Director of Sales & Customer Service · Warsaw'],
+  'tog-zen':      ['rozwiń','expand'],
+  'role-older':   ['Kierownicze role: obsługa klienta, contact center, telesprzedaż','Leadership roles: customer service, contact centre, telesales'],
+  'lbl-skills-section':['Umiejętności','Skills'],
+  'sk1t':['Zarządzanie produktem','Product management'],
+  'sk3t':['Narzędzia','Tools'],
+  'sk4t':['Miękkie','Soft skills'],
+  'skt-prio':['Priorytetyzacja','Prioritisation'],
+  'skt-met':['Metryki produktowe','Product metrics'],
+  'skt-comm':['Komunikacja z zarządem','C-level communication'],
+  'skt-biz':['Orientacja biznesowa','Business mindset'],
+  'skt-team':['Praca zespołowa','Teamwork'],
+  'skt-flex':['Elastyczność','Adaptability'],
+  'lbl-certs-section':['Certyfikaty & szkolenia','Certifications & training'],
+  'cert-red':['Red Team Specialist (Linux, Cyberbezpieczeństwo)','Red Team Specialist (Linux, Cybersecurity)'],
+  'cert-iso':['ISO 27001 / ISO 9001 – Auditor i Pełnomocnik Zarządu','ISO 27001 / ISO 9001 – Auditor & Management Representative'],
+  'cert-pm':['Zarządzanie projektami','Project management']
+};
+
+function switchLang() {
+  isEN = !isEN;
+  var track = document.getElementById('lang-toggle');
+  track.classList.toggle('en', isEN);
+  document.getElementById('lbl-pl').classList.toggle('active', !isEN);
+  document.getElementById('lbl-en').classList.toggle('active', isEN);
+  var i = isEN ? 1 : 0;
+  for(var id in T) {
+    var el = document.getElementById(id);
+    if(!el) continue;
+    if(el.tagName === 'LABEL') { el.childNodes[0].textContent = T[id][i]; continue; }
+    el.innerHTML = T[id][i];
+  }
+  ['mill','bnp','pko','zen'].forEach(function(k){
+    var pl=document.getElementById('b'+k+'-pl'), en=document.getElementById('b'+k+'-en');
+    if(pl) pl.style.display = isEN?'none':'';
+    if(en) en.style.display = isEN?'':'none';
+  });
+  // demo elements (only if unlocked)
+  var db = document.getElementById('demo-body');
+  if(db && db.style.display !== 'none') {
+    var demoT = {
+      'dsub':  ['Inteligentny dobór kuriera','Smart carrier routing'],
+      'dsubt': ['Dobierz kuriera optymalnego dla Twojej przesyłki','Find the best courier for your shipment'],
+      'demo-run': ['Porównaj kurierów →','Compare carriers →'],
+      'dopt1': ['Krajowa','Domestic'],
+      'dopt2': ['Międzynarodowa','International'],
+      'dopt3': ['Najniższa cena','Lowest price'],
+      'dopt4': ['Najszybsza dostawa','Fastest delivery'],
+      'dopt5': ['Balans cena/czas','Price/speed balance']
+    };
+    for(var did in demoT) {
+      var del = document.getElementById(did);
+      if(del) del.textContent = demoT[did][i];
+    }
+    var dlw=document.getElementById('dlw'), dld=document.getElementById('dld'), dlp=document.getElementById('dlp');
+    if(dlw) dlw.childNodes[0].textContent = isEN?'Weight (kg)':'Waga paczki (kg)';
+    if(dld) dld.childNodes[0].textContent = isEN?'Destination':'Destynacja';
+    if(dlp) dlp.childNodes[0].textContent = isEN?'Priority':'Priorytet';
+    doDemo();
+  }
+}
+
+function unlockDemo(val) {
+  if(val === '4444') {
+    document.getElementById('demo-gate').style.display = 'none';
+    document.getElementById('demo-body').style.display = 'block';
+    doDemo();
+  } else if(val.length === 4) {
+    document.getElementById('demo-err').style.display = 'block';
+  } else {
+    document.getElementById('demo-err').style.display = 'none';
+  }
+}
+
+function navTo(id) {
+  var el = document.getElementById(id);
+  if(el) window.scrollTo(0, el.getBoundingClientRect().top + window.pageYOffset - 60);
+}
+
+function doToggleAll() {
+  allExp = !allExp;
+  document.querySelectorAll('.exp-content').forEach(function(c){ c.style.maxHeight = allExp ? c.scrollHeight+'px' : '0'; });
+  ['mill','bnp','pko','zen'].forEach(function(k){ var s=document.getElementById('tog-'+k); if(s) s.textContent = allExp?(isEN?'collapse':'zwiń'):(isEN?'expand':'rozwiń'); });
+  document.querySelectorAll('.exp-toggle').forEach(function(b){ b.childNodes[0].textContent = allExp?'− ':'+ '; });
+  var btn=document.getElementById('toggle-all-btn');
+  if(btn) btn.textContent = allExp?(isEN?'− collapse all':'− zwiń wszystko'):(isEN?'+ expand all':'+ rozwiń wszystko');
+}
+
+function doToggleExp(btn) {
+  var c=btn.nextElementSibling, open=c.style.maxHeight&&c.style.maxHeight!=='0px';
+  c.style.maxHeight = open?'0':c.scrollHeight+'px';
+  var sp=btn.querySelector('span');
+  if(sp) sp.textContent = open?(isEN?'expand':'rozwiń'):(isEN?'collapse':'zwiń');
+  btn.childNodes[0].textContent = open?'+ ':'− ';
+}
+
+function doDemo() {
+  var w=parseFloat(document.getElementById('d-weight').value)||2;
+  var dest=document.getElementById('d-dest').value;
+  var prio=document.getElementById('d-prio').value;
+  var intl=dest==='miedzynarodowa';
+  var carriers=[
+    {name:'InPost', abbr:'IP',basePrice:9.1, intlMult:2.8,speed:2,reliability:92},
+    {name:'DPD',    abbr:'DP',basePrice:11.5,intlMult:2.2,speed:1,reliability:95},
+    {name:'DHL',    abbr:'DH',basePrice:14.0,intlMult:1.8,speed:1,reliability:97},
+    {name:'GLS',    abbr:'GL',basePrice:10.8,intlMult:2.0,speed:2,reliability:93},
+    {name:'FedEx',  abbr:'FX',basePrice:16.5,intlMult:1.6,speed:1,reliability:98},
+    {name:'Pocztex',abbr:'PX',basePrice:8.9, intlMult:3.2,speed:3,reliability:88}
+  ];
+  var results=carriers.map(function(c){
+    var p=parseFloat(((c.basePrice+w*1.2)*(intl?c.intlMult:1)).toFixed(2));
+    var d=intl?c.speed+2:c.speed, s;
+    if(prio==='cena') s=Math.round(100-(p/80*60)+(c.reliability/100*20)-d*3);
+    else if(prio==='czas') s=Math.round(100-d*18+(c.reliability/100*15)-(p/80*10));
+    else s=Math.round(100-(p/80*30)-d*12+(c.reliability/100*25));
+    return Object.assign({},c,{price:p,days:d,score:Math.max(10,Math.min(99,s))});
+  }).sort(function(a,b){return b.score-a.score;});
+  var mx=results[0].score;
+  var h='<table class="demo-table"><thead><tr><th>'+(isEN?'Carrier':'Kurier')+'</th><th>'+(isEN?'Price':'Cena')+'</th><th>'+(isEN?'Delivery':'Dostawa')+'</th><th>'+(isEN?'Reliability':'Niezaw.')+'</th><th>'+(isEN?'Score':'Wynik')+'</th></tr></thead><tbody>';
+  results.forEach(function(c,i){
+    var b=i===0, dl=isEN?(c.days===1?'day':'days'):(c.days===1?'dzie\u0144':'dni');
+    var ic='width:26px;height:26px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;flex-shrink:0;background:'+(b?'#185FA5':'var(--c-surface)')+';border:1px solid '+(b?'#185FA5':'var(--c-border)')+';color:'+(b?'#fff':'var(--c-muted)')+';';
+    var badge=b?'<span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:99px;background:#185FA5;color:#fff;">\u2605 '+(isEN?'Best':'Najlepszy')+'</span>':'';
+    var bar='<span style="display:flex;align-items:center;gap:6px;justify-content:center;"><span style="width:60px;height:4px;background:var(--c-border);border-radius:99px;overflow:hidden;display:inline-block;"><span style="display:block;height:100%;width:'+Math.round(c.score/mx*100)+'%;background:'+(b?'#185FA5':'#B5D4F4')+';border-radius:99px;"></span></span><span style="font-weight:600;font-size:12px;color:'+(b?'#185FA5':'var(--c-muted)')+';">'+c.score+'</span></span>';
+    h+='<tr class="'+(b?'best':'')+'"><td><span style="display:flex;align-items:center;gap:8px;"><span style="'+ic+'">'+c.abbr+'</span><span style="font-weight:500;color:'+(b?'#0C447C':'var(--c-text)')+';">'+c.name+'</span>'+badge+'</span></td><td>'+c.price.toFixed(2)+' z\u0142</td><td>'+c.days+' '+dl+'</td><td>'+c.reliability+'%</td><td>'+bar+'</td></tr>';
+  });
+  h+='</tbody></table>';
+  document.getElementById('demo-out').innerHTML=h;
+}
+
+var phoneVisible=false;
+document.getElementById('phone-eye-wrap').onclick=function(){
+  phoneVisible=!phoneVisible;
+  document.getElementById('phone-display').textContent=phoneVisible?'+48 535 ??? ???':'+48 535 \u2022\u2022\u2022 \u2022\u2022\u2022';
+  document.getElementById('phone-eye').innerHTML=phoneVisible
+    ?'<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/>'
+    :'<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
+};
+
+document.getElementById('lang-toggle').onclick=function(){
+  switchLang();
+  var db=document.getElementById('demo-body');
+  if(db&&db.style.display!=='none') doDemo();
+};
+</script>
+</body>
+</html>
