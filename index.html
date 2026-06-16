@@ -494,6 +494,48 @@ function doToggleExp(btn) {
   btn.childNodes[0].textContent = open?'+ ':'− ';
 }
 
+function runRetention() {
+  var feature = document.getElementById('ret-feature').value;
+  var segment = document.getElementById('ret-segment').value;
+  var en = isEN;
+  var data = {
+    onboarding:   { before:[100,42,28,18], after:[100,61,47,38], label:en?'New onboarding':'Nowy onboarding' },
+    notification: { before:[100,38,22,14], after:[100,55,41,32], label:en?'Push notifications':'Push notifications' },
+    dashboard:    { before:[100,45,31,21], after:[100,58,44,35], label:en?'New dashboard':'Nowy dashboard' }
+  };
+  var segMult = {all:1, new:0.85, returning:1.15};
+  var d = data[feature], m = segMult[segment];
+  var before = d.before.map(function(v,i){ return i===0?100:Math.round(v*m); });
+  var after  = d.after.map(function(v,i){ return i===0?100:Math.min(99,Math.round(v*m)); });
+  var days = ['Day 0','Day 30','Day 60','Day 90'];
+  var beforeLabel = en?'Before':'Przed';
+  var afterLabel  = en?'After':'Po';
+  var changeLabel = en?'Change':'Zmiana';
+  var rows = days.map(function(day,i){
+    var bw=before[i], aw=after[i], diff=aw-bw;
+    var diffStr = i===0?'—':(diff>0?'+':'')+diff+'pp';
+    var diffColor = diff>0?'#0F6E56':diff<0?'#E24B4A':'var(--c-muted)';
+    return '<tr style="border-bottom:1px solid var(--c-border)">'
+      +'<td style="padding:10px 12px;font-size:13px;font-weight:500;color:var(--c-text)">'+day+'</td>'
+      +'<td style="padding:10px 12px;min-width:140px"><div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:6px;background:var(--c-border);border-radius:99px;overflow:hidden"><div style="height:100%;width:'+bw+'%;background:#B5D4F4;border-radius:99px"></div></div><span style="font-size:12px;color:var(--c-muted);min-width:32px;text-align:right">'+bw+'%</span></div></td>'
+      +'<td style="padding:10px 12px;min-width:140px"><div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:6px;background:var(--c-border);border-radius:99px;overflow:hidden"><div style="height:100%;width:'+aw+'%;background:#185FA5;border-radius:99px"></div></div><span style="font-size:12px;color:var(--c-text);font-weight:600;min-width:32px;text-align:right">'+aw+'%</span></div></td>'
+      +'<td style="padding:10px 12px;text-align:center;font-size:13px;font-weight:600;color:'+diffColor+'">'+diffStr+'</td>'
+      +'</tr>';
+  }).join('');
+  var lift90 = after[3]-before[3];
+  var insightLabel = en
+    ?'After launching <strong>'+d.label+'</strong>, D90 retention increased by <strong>+'+lift90+'pp</strong>. Recommendation: roll out to all segments and monitor NPS.'
+    :'Po wdrożeniu <strong>'+d.label+'</strong> retencja D90 wzrosła o <strong>+'+lift90+'pp</strong>. Rekomendacja: rollout na wszystkie segmenty i monitoring NPS.';
+  var html = '<table style="width:100%;border-collapse:collapse;font-size:13px">'
+    +'<thead><tr style="border-bottom:2px solid var(--c-border)">'
+    +'<th style="padding:8px 12px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--c-muted)">Cohort</th>'
+    +'<th style="padding:8px 12px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:#B5D4F4">'+beforeLabel+'</th>'
+    +'<th style="padding:8px 12px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:#185FA5">'+afterLabel+'</th>'
+    +'<th style="padding:8px 12px;text-align:center;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--c-muted)">'+changeLabel+'</th>'
+    +'</tr></thead><tbody>'+rows+'</tbody></table>'
+    +'<div style="margin-top:1rem;padding:12px 14px;background:var(--c-green-light);border-radius:10px;font-size:13px;color:var(--c-green);border-left:3px solid var(--c-green)">💡 '+insightLabel+'</div>';
+  document.getElementById('ret-out').innerHTML = html;
+}
 function doDemo() {
   var w=parseFloat(document.getElementById('d-weight').value)||2;
   var dest=document.getElementById('d-dest').value;
