@@ -559,7 +559,7 @@ function initDemoToggles() {
     if(!section) return;
     var label = section.querySelector('.section-label');
     var wrap = section.querySelector('.demo-wrap');
-    var body = id === 'demo' ? document.getElementById('demo-body') : null;
+var body = null;
     if(!label) return;
 
     // ukryj domyślnie
@@ -618,12 +618,9 @@ function showDemoPassword(id, btn) {
     if(this.value === '4444') {
       overlay.remove();
       var sec = document.getElementById(id);
-      if(id === 'demo') {
-        var b = document.getElementById('demo-body');
-        if(b) { b.style.display = 'block'; doDemo(); }
-      } else {
-        var w = sec ? sec.querySelector('.demo-wrap') : null;
-        if(w) w.style.display = '';
+  var w = sec ? sec.querySelector('.demo-wrap') : null;
+if(w) w.style.display = '';
+if(id === 'demo') doDemo();
       }
       btn.textContent = '− zwiń';
       btn.setAttribute('data-open', 'true');
