@@ -189,15 +189,6 @@ footer{border-top:1px solid var(--c-border);text-align:center;padding:2rem;font-
     <span id="lbl-demo-section">Demo — prototyp koncepcyjny</span>
     <span style="font-size:10px;font-weight:400;color:var(--c-muted)" id="lbl-demo-sub">zbudowany w Claude Artifacts</span>
   </div>
-  <div id="demo-gate" style="background:var(--c-surface);border:1px solid var(--c-border);border-radius:16px;padding:2.5rem 1.5rem;text-align:center">
-    <div style="font-size:36px;margin-bottom:.75rem">🔒</div>
-    <p style="font-size:14px;color:var(--c-muted);margin-bottom:1.25rem" id="gate-label">Ta sekcja jest chroniona hasłem</p>
-    <input id="demo-pwd" type="password" placeholder="••••" maxlength="4"
-      style="width:100px;text-align:center;font-size:20px;letter-spacing:.4em;padding:8px 12px;border:1.5px solid var(--c-border);border-radius:8px;font-family:inherit;display:block;margin:0 auto 8px"
-      oninput="unlockDemo(this.value)">
-    <span id="demo-err" style="font-size:12px;color:#E24B4A;display:none" id="gate-err">Nieprawidłowe hasło</span>
-  </div>
-  <div id="demo-body" style="display:none">
     <div class="demo-wrap">
       <div class="demo-top">
         <div class="demo-sublabel" id="dsub">Inteligentny dobór kuriera</div>
