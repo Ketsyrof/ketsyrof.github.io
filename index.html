@@ -391,6 +391,17 @@ function switchLang() {
     if(en) en.style.display = isEN?'':'none';
   });
   // demo elements (only if unlocked)
+  // hero exp translations
+  var expT = {
+    'exp-mill': ['Automatyzacja procesów — redukcja nakładu pracy o <strong>2,5 etatu/mies.</strong> i wzrost efektywności operacyjnej.','Process automation — reducing workload by <strong>2.5 FTEs/month</strong> and improving operational efficiency.'],
+    'exp-bnp':  ['Optymalizacja zdalnego otwierania konta — skrócenie procesu o <strong>20 sekund</strong>.','Remote account opening optimisation — process shortened by <strong>20 seconds</strong>.'],
+    'exp-pko':  ['Rozwój usług dodatkowych i kampanii marketingowych opartych na segmentacji klientów.','Development of additional services and marketing campaigns based on customer segmentation.'],
+    'exp-zen':  ['Budowa działu od zera — <strong>800 tys. uczestników</strong> programu lojalnościowego.','Built the department from scratch — <strong>800,000 members</strong> in the loyalty programme.']
+  };
+  for(var eid in expT) {
+    var eel = document.getElementById(eid);
+    if(eel) eel.innerHTML = expT[eid][i];
+  }
   var np = document.getElementById('nav-pdf-label');
   if(np) np.textContent = isEN ? 'Download CV' : 'Pobierz CV';
   // chat
