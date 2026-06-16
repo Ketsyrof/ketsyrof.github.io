@@ -515,6 +515,49 @@ function doToggleExp(btn) {
   btn.childNodes[0].textContent = open?'+ ':'− ';
 }
 
+function runAgentDoc(type) {
+  var feature = document.getElementById('ag-feature').value.trim();
+  if(!feature) { alert(isEN ? 'Please enter a feature name' : 'Wpisz nazwę funkcji'); return; }
+  var out = document.getElementById('ag-out');
+  out.innerHTML = '<p style="color:var(--c-muted);font-size:13px;padding:1rem">⏳ ' + (isEN ? 'Generating...' : 'Generuję...') + '</p>';
+
+  var prompts = {
+    us: isEN
+      ? 'Write a professional User Story for a banking app feature called "'+feature+'". Format: As a [role] I want [action] so that [benefit]. Then add 3 bullet points with business context. Keep it concise.'
+      : 'Napisz profesjonalną User Story dla funkcji aplikacji bankowej o nazwie "'+feature+'". Format: Jako [rola] chcę [akcja] aby [korzyść]. Następnie dodaj 3 punkty z kontekstem biznesowym. Zwięźle.',
+    ac: isEN
+      ? 'Write 5 acceptance criteria for a banking app feature called "'+feature+'". Use Given/When/Then format. Be specific and testable.'
+      : 'Napisz 5 kryteriów akceptacji dla funkcji aplikacji bankowej o nazwie "'+feature+'". Użyj formatu Given/When/Then. Bądź konkretny i mierzalny.',
+    rn: isEN
+      ? 'Write a short release note for a banking app feature called "'+feature+'". Include: what changed, why it matters to users, and one key metric to track. Max 4 sentences.'
+      : 'Napisz krótki release note dla funkcji aplikacji bankowej o nazwie "'+feature+'". Zawrzyj: co się zmieniło, dlaczego to ważne dla użytkowników i jedną kluczową metrykę do śledzenia. Maks 4 zdania.'
+  };
+
+  fetch('/.netlify/functions/chat', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      system: 'You are an experienced Product Owner in a banking/fintech company. Respond concisely and professionally.',
+      messages: [{role:'user', content: prompts[type]}]
+    })
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(data){
+    var reply = data.content && data.content[0] ? data.content[0].text : '—';
+    var labels = {
+      us:  isEN ? '📋 User Story' : '📋 User Story',
+      ac:  isEN ? '✅ Acceptance Criteria' : '✅ Kryteria akceptacji',
+      rn:  isEN ? '🚀 Release Note' : '🚀 Release Note'
+    };
+    out.innerHTML = '<div style="padding:1rem 0">'
+      + '<div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--c-accent);margin-bottom:.75rem">'+labels[type]+'</div>'
+      + '<div style="font-size:13px;color:var(--c-text);line-height:1.7;white-space:pre-wrap">'+reply+'</div>'
+      + '</div>';
+  })
+  .catch(function(){
+    out.innerHTML = '<p style="color:#E24B4A;font-size:13px;padding:1rem">' + (isEN ? 'Something went wrong. Try again.' : 'Coś poszło nie tak. Spróbuj ponownie.') + '</p>';
+  });
+}
 function runRetention() {
   var feature = document.getElementById('ret-feature').value;
   var segment = document.getElementById('ret-segment').value;
