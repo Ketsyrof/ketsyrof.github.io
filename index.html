@@ -274,7 +274,7 @@ footer{border-top:1px solid var(--c-border);text-align:center;padding:2rem;font-
 <!-- CHAT -->
 <section id="chat">
   <div class="section-label"><span id="lbl-chat-section">Zadaj mi pytanie</span></div>
-  <div class="chat-wrap">
+  <div class="chat-wrap" style="border:1px solid var(--c-border);border-radius:16px;overflow:hidden">
     <div class="chat-messages" id="chat-messages">
       <div class="chat-msg bot" id="chat-welcome">Cześć! Jestem wirtualnym asystentem Daniela. Możesz zapytać mnie o jego doświadczenie, umiejętności, projekty lub podejście do pracy. 👋</div>
     </div>
@@ -513,7 +513,7 @@ function sendChat() {
 
   chatHistory.push({role:'user', content: msg});
 
-  fetch('https://api.anthropic.com/v1/messages', {
+  fetch('/.netlify/functions/chat', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({
