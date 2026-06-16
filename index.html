@@ -173,6 +173,31 @@ footer{border-top:1px solid var(--c-border);text-align:center;padding:2rem;font-
 </div>
 
 <!-- DEMO -->
+<section id="ai">
+  <div class="section-label"><span id="lbl-ai-section">AI Workflow</span></div>
+  <div class="ai-grid">
+    <div class="ai-card"><div class="ai-card-head"><div class="ai-dot"></div><h4 id="ai1t">Prototypowanie no-code</h4></div><p id="ai1b">Buduję interaktywne prototypy koncepcyjne samodzielnie w Claude Artifacts — bez angażowania developerów na etapie odkrywania.</p><span class="ai-badge">Claude Artifacts</span></div>
+    <div class="ai-card"><div class="ai-card-head"><div class="ai-dot"></div><h4 id="ai2t">Analiza danych z AI</h4></div><p id="ai2b">Piszę zapytania SQL i skrypty Python z pomocą LLM do analizy metryk produktowych i weryfikacji hipotez. Np. analiza retencji użytkowników po wdrożeniu nowej funkcji — segmentacja kohort, porównanie 30/60/90-dniowego powrotu.</p><span class="ai-badge">SQL · Python · LLM</span></div>
+    <div class="ai-card"><div class="ai-card-head"><div class="ai-dot"></div><h4 id="ai3t">Agenci i workflow</h4></div><p id="ai3b">Projektuję workflow oparte na AI do powtarzalnych zadań analitycznych i dokumentacyjnych — User Stories, release notes, analizy competitor.</p><span class="ai-badge">Claude · MCP · Copilot</span></div>
+    <div class="ai-card"><div class="ai-card-head"><div class="ai-dot"></div><h4 id="ai4t">Wiedza o modelach</h4></div><p id="ai4b">Praktyczna znajomość RAG, context window, walidacji outputów i projektowania promptów — stosuję to codziennie w pracy.</p><span class="ai-badge">RAG · prompt design · evals</span></div>
+  </div>
+</section>
+
+<!-- RETENTION DEMO -->
+<section id="retention-demo">
+  <div class="section-label"><span id="lbl-ret-section">Demo — Analiza retencji użytkowników</span><span style="font-size:10px;font-weight:400;color:var(--c-muted)" id="lbl-ret-sub">wizualizacja kohortowa</span></div>
+  <div class="demo-wrap">
+    <div class="demo-top">
+      <div class="demo-sublabel" id="ret-sublabel">Cohort retention analysis</div>
+      <div class="demo-subtitle" id="ret-subtitle">Wybierz przedział czasowy i funkcję produktową aby zobaczyć wpływ na retencję</div>
+      <div class="demo-inputs">
+        <label id="ret-lbl-feature">Funkcja produktowa
+          <select id="ret-feature">
+            <option value="onboarding" id="ret-opt1">Nowy onboarding</option>
+            <option value="notification" id="ret-opt2">Push notifications</option>
+            <option value="dashboard" id="ret-opt3">Nowy dashboard</option>
+          </select>
+
 <section id="demo">
   <div class="section-label">
     <span id="lbl-demo-section">Demo — prototyp koncepcyjny</span>
@@ -204,30 +229,6 @@ footer{border-top:1px solid var(--c-border);text-align:center;padding:2rem;font-
 </section>
 
 <!-- AI -->
-<section id="ai">
-  <div class="section-label"><span id="lbl-ai-section">AI Workflow</span></div>
-  <div class="ai-grid">
-    <div class="ai-card"><div class="ai-card-head"><div class="ai-dot"></div><h4 id="ai1t">Prototypowanie no-code</h4></div><p id="ai1b">Buduję interaktywne prototypy koncepcyjne samodzielnie w Claude Artifacts — bez angażowania developerów na etapie odkrywania.</p><span class="ai-badge">Claude Artifacts</span></div>
-    <div class="ai-card"><div class="ai-card-head"><div class="ai-dot"></div><h4 id="ai2t">Analiza danych z AI</h4></div><p id="ai2b">Piszę zapytania SQL i skrypty Python z pomocą LLM do analizy metryk produktowych i weryfikacji hipotez. Np. analiza retencji użytkowników po wdrożeniu nowej funkcji — segmentacja kohort, porównanie 30/60/90-dniowego powrotu.</p><span class="ai-badge">SQL · Python · LLM</span></div>
-    <div class="ai-card"><div class="ai-card-head"><div class="ai-dot"></div><h4 id="ai3t">Agenci i workflow</h4></div><p id="ai3b">Projektuję workflow oparte na AI do powtarzalnych zadań analitycznych i dokumentacyjnych — User Stories, release notes, analizy competitor.</p><span class="ai-badge">Claude · MCP · Copilot</span></div>
-    <div class="ai-card"><div class="ai-card-head"><div class="ai-dot"></div><h4 id="ai4t">Wiedza o modelach</h4></div><p id="ai4b">Praktyczna znajomość RAG, context window, walidacji outputów i projektowania promptów — stosuję to codziennie w pracy.</p><span class="ai-badge">RAG · prompt design · evals</span></div>
-  </div>
-</section>
-
-<!-- RETENTION DEMO -->
-<section id="retention-demo">
-  <div class="section-label"><span id="lbl-ret-section">Demo — Analiza retencji użytkowników</span><span style="font-size:10px;font-weight:400;color:var(--c-muted)" id="lbl-ret-sub">wizualizacja kohortowa</span></div>
-  <div class="demo-wrap">
-    <div class="demo-top">
-      <div class="demo-sublabel" id="ret-sublabel">Cohort retention analysis</div>
-      <div class="demo-subtitle" id="ret-subtitle">Wybierz przedział czasowy i funkcję produktową aby zobaczyć wpływ na retencję</div>
-      <div class="demo-inputs">
-        <label id="ret-lbl-feature">Funkcja produktowa
-          <select id="ret-feature">
-            <option value="onboarding" id="ret-opt1">Nowy onboarding</option>
-            <option value="notification" id="ret-opt2">Push notifications</option>
-            <option value="dashboard" id="ret-opt3">Nowy dashboard</option>
-          </select>
         </label>
         <label id="ret-lbl-segment">Segment użytkowników
           <select id="ret-segment">
