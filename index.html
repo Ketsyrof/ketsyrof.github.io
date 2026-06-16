@@ -7,10 +7,22 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--c-accent:#185FA5;--c-accent-light:#E6F1FB;--c-text:#1a1a1a;--c-muted:#6b7280;--c-border:#e5e7eb;--c-bg:#fff;--c-surface:#f9fafb;--c-green:#0F6E56;--c-green-light:#E1F5EE}
-body{font-family:'Inter',system-ui,sans-serif;color:var(--c-text);background:var(--c-bg);line-height:1.6;font-size:15px}
+body.dark{--c-text:#f0f0f0;--c-muted:#9ca3af;--c-border:#374151;--c-bg:#111827;--c-surface:#1f2937;--c-accent:#4a9fd4;--c-accent-light:#1e3a5f;--c-green:#34d399;--c-green-light:#0d3b2e}
+body.dark .ai-badge{color:#34d399}
+body.dark .exp-toggle{color:#4a9fd4}
+body.dark .toggle-all{color:#4a9fd4}
+body.dark .exp-current{color:#4a9fd4;background:#1e3a5f}
+body.dark .hero-tag{color:#4a9fd4;background:#1e3a5f}
+body.dark .contact-pill{color:var(--c-text)}
+body.dark .demo-table tr.best td{background:#1e3a5f;color:#93c5fd}
+body.dark .demo-table tr.best td:first-child{border-left-color:#4a9fd4}
+body.dark .demo-btn{background:#4a9fd4}
+body.dark .skill-card,.dark .ai-card,.dark .cert-item{border-color:#374151}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--c-text);background:var(--c-bg);line-height:1.6;font-size:15px;transition:background .3s,color .3s}
 a{color:var(--c-accent);text-decoration:none}
 a:hover{text-decoration:underline}
-nav{position:sticky;top:0;background:rgba(255,255,255,0.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--c-border);z-index:100;padding:0 2rem}
+nav{position:sticky;top:0;background:rgba(255,255,255,0.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--c-border);z-index:100;padding:0 2rem;transition:background .3s}
+body.dark nav{background:rgba(17,24,39,0.92)}
 .nav-inner{max-width:860px;margin:auto;display:flex;align-items:center;justify-content:space-between;height:52px}
 .nav-logo{font-weight:600;font-size:15px}
 .nav-right{display:flex;align-items:center;gap:1.5rem}
@@ -94,8 +106,9 @@ section{max-width:860px;margin:auto;padding:2rem}
 .cert-org{font-size:12px;color:var(--c-muted)}
 .cert-year{font-size:12px;color:var(--c-muted);white-space:nowrap;margin-left:1rem}
 footer{border-top:1px solid var(--c-border);text-align:center;padding:2rem;font-size:12px;color:var(--c-muted)}
+
+@media print{nav,#demo,.toggle-all,.exp-toggle,.lang-toggle,button,.demo-btn,#dark-toggle{display:none!important}body{font-size:12px}section{padding:1rem 0}.hero{padding:1rem 0}}
 </style>
-</head>
 <body>
 
 <nav>
@@ -114,19 +127,28 @@ footer{border-top:1px solid var(--c-border);text-align:center;padding:2rem;font-
         <div class="toggle-track" id="lang-toggle"><div class="toggle-thumb"></div></div>
         <span class="lang-label" id="lbl-en">EN</span>
       </div>
+      <div class="lang-toggle" style="margin-left:.5rem">
+        <span style="font-size:14px">☀️</span>
+        <div class="toggle-track" id="dark-toggle"><div class="toggle-thumb"></div></div>
+        <span style="font-size:14px">🌙</span>
+      </div>
     </div>
   </div>
 </nav>
 
 <div class="hero">
-  <div class="hero-tag" id="hero-tag">Product Owner · Warszawa</div>
+  <div class="hero-tag" id="hero-tag" style="display:none">Product Owner · Warszawa</div>
   <h1>Daniel <span>Forystek</span></h1>
-  <p class="hero-bio" id="hero-bio">Product Owner z <strong>ponad 5-letnim doświadczeniem</strong> w cyfrowych produktach finansowych. Na co dzień łączę klasyczny warsztat PO — backlog, roadmapa, User Stories — z <strong>aktywnym workflow opartym na AI</strong>: buduję prototypy w Claude Artifacts, projektuję agentów i piszę zapytania SQL z pomocą modeli językowych.</p>
+  <p class="hero-bio" id="hero-bio">Product Manager z <strong>ponad 6-letnim doświadczeniem</strong> w rozwoju produktów cyfrowych i bankowości elektronicznej. Specjalizuję się w zarządzaniu strategią produktu, roadmapą i backlogiem oraz w optymalizacji procesów w oparciu o dane. Moja ścieżka zawodowa to konsekwentne przechodzenie od budowania i zarządzania zespołami sprzedaży i obsługi klienta do roli Product Managera w sektorze bankowym. Łączę perspektywę biznesową i operacyjną z myśleniem produktowym — rozumiem zarówno potrzeby klienta, jak i to, co stoi za sprawnie działającym procesem.<br><br>Prowadzę inicjatywy od identyfikacji potrzeb klientów, przez definiowanie rozwiązań i współpracę z zespołami IT i UX/UI, aż po wdrożenie i pomiar efektów. Skupiam się na automatyzacji procesów, cyfryzacji usług i poprawie doświadczenia klienta. Buduję interaktywne prototypy koncepcyjne samodzielnie w <strong>Claude Artifacts</strong> — bez angażowania developerów na etapie odkrywania.<br><br><strong>Wybrane doświadczenia:</strong><br><br><span style="display:grid;gap:6px;margin-top:4px"><span><strong>Bank Millennium</strong> — automatyzacja procesów operacyjnych i wdrażanie rozwiązań samoobsługowych. Ograniczenie nakładu pracy odpowiadające około <strong>2,5 etatu miesięcznie</strong> oraz wzrost efektywności operacyjnej.</span><span><strong>BNP Paribas</strong> — optymalizacja procesu zdalnego otwierania konta i rozwój funkcji samoobsługowych. Skrócenie procesu otwierania konta o <strong>20 sekund</strong>.</span><span><strong>PKO BP Finat</strong> — rozwój usług dodatkowych i kampanii marketingowych opartych na segmentacji klientów.</span><span><strong>ZenCard</strong> — budowa działu od zera i pozyskanie <strong>800 tys. uczestników</strong> programu lojalnościowego.</span></span><br><strong>Certyfikaty:</strong> PSPO II · PSPO I &nbsp;|&nbsp; <strong>Narzędzia:</strong> Jira · Confluence · Claude AI · Power BI · Dynatrace · Grafana</p>
   <div class="hero-contacts">
     <a class="contact-pill" href="mailto:******@gmail.com">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
       ******@gmail.com
     </a>
+    <button class="contact-pill" onclick="downloadPDF()" style="cursor:pointer;border:1px solid var(--c-border);background:none;font-family:inherit;font-size:13px">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="14" height="14"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      <span id="pdf-btn-label">Pobierz CV</span>
+    </button>
     <span class="contact-pill">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg>
       <span id="phone-display">+48 535 ••• •••</span>
@@ -244,8 +266,26 @@ footer{border-top:1px solid var(--c-border);text-align:center;padding:2rem;font-
   <div class="skills-grid">
     <div class="skill-card"><h4 id="sk1t">Zarządzanie produktem</h4><div class="tags"><span class="tag">Backlog &amp; roadmapa</span><span class="tag">User Stories / AC</span><span class="tag">Agile / Scrum / Kanban</span><span class="tag" id="skt-prio">Priorytetyzacja</span><span class="tag" id="skt-met">Metryki produktowe</span></div></div>
     <div class="skill-card"><h4>AI &amp; data</h4><div class="tags"><span class="tag">Claude / MCP</span><span class="tag">Prompt engineering</span><span class="tag">RAG · context window</span><span class="tag">SQL</span></div></div>
-    <div class="skill-card"><h4 id="sk3t">Narzędzia</h4><div class="tags"><span class="tag">JIRA</span><span class="tag">Confluence</span><span class="tag">Dynatrace / Grafana</span><span class="tag">CRM (Pipedrive)</span><span class="tag">Excel / MS Office</span></div></div>
+    <div class="skill-card"><h4 id="sk3t">Narzędzia</h4><div class="tags"><span class="tag">JIRA</span><span class="tag">Confluence</span><span class="tag">Claude / MCP</span><span class="tag">Power BI</span><span class="tag">Excel</span><span class="tag">Dynatrace / Grafana</span><span class="tag">Pipedrive CRM</span><span class="tag">MS Office</span></div></div>
     <div class="skill-card"><h4 id="sk4t">Miękkie</h4><div class="tags"><span class="tag" id="skt-comm">Komunikacja z zarządem</span><span class="tag" id="skt-biz">Orientacja biznesowa</span><span class="tag" id="skt-team">Praca zespołowa</span><span class="tag" id="skt-flex">Elastyczność</span></div></div>
+  </div>
+</section>
+
+<!-- CHAT -->
+<section id="chat">
+  <div class="section-label"><span id="lbl-chat-section">Zadaj mi pytanie</span></div>
+  <div class="chat-wrap">
+    <div class="chat-messages" id="chat-messages">
+      <div class="chat-msg bot" id="chat-welcome">Cześć! Jestem wirtualnym asystentem Daniela. Możesz zapytać mnie o jego doświadczenie, umiejętności, projekty lub podejście do pracy. 👋</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;padding:1rem 1.25rem;border-top:1px solid var(--c-border);background:var(--c-surface)">
+      <input id="chat-input" type="text"       placeholder="Np. Jakie masz doświadczenie z Agile?" onkeydown="if(event.key==='Enter')sendChat()"
+        style="flex:1;font-size:14px;padding:12px 18px;border:1.5px solid var(--c-border);border-radius:999px;background:var(--c-bg);color:var(--c-text);font-family:inherit;outline:none;min-width:0">
+      <button id="chat-send" onclick="sendChat()"
+        style="flex-shrink:0;width:42px;height:42px;border:none;border-radius:50%;background:#185FA5;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(24,95,165,0.35)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="16" height="16"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </button>
+    </div>
   </div>
 </section>
 
@@ -268,8 +308,8 @@ var isEN = false;
 var allExp = false;
 
 var T = {
-  'hero-tag':     ['Product Owner · Warszawa','Product Owner · Warsaw, Poland'],
-  'hero-bio':     ['Product Owner z <strong>ponad 5-letnim doświadczeniem</strong> w cyfrowych produktach finansowych. Na co dzień łączę klasyczny warsztat PO — backlog, roadmapa, User Stories — z <strong>aktywnym workflow opartym na AI</strong>: buduję prototypy w Claude Artifacts, projektuję agentów i piszę zapytania SQL z pomocą modeli językowych.','Product Owner with <strong>5+ years</strong> in digital financial products. I combine classic PO skills — backlog, roadmap, User Stories — with an <strong>active AI-driven workflow</strong>: building prototypes in Claude Artifacts, designing agents, and writing SQL queries with LLM support.'],
+  'hero-tag':     ['',''],
+  'hero-bio':     ['Product Manager z <strong>ponad 6-letnim doświadczeniem</strong> w rozwoju produktów cyfrowych i bankowości elektronicznej. Specjalizuję się w zarządzaniu strategią produktu, roadmapą i backlogiem oraz w optymalizacji procesów w oparciu o dane. Moja ścieżka zawodowa to konsekwentne przechodzenie od budowania i zarządzania zespołami sprzedaży i obsługi klienta do roli Product Managera w sektorze bankowym. Łączę perspektywę biznesową i operacyjną z myśleniem produktowym — rozumiem zarówno potrzeby klienta, jak i to, co stoi za sprawnie działającym procesem.<br><br>Prowadzę inicjatywy od identyfikacji potrzeb klientów, przez definiowanie rozwiązań i współpracę z zespołami IT i UX/UI, aż po wdrożenie i pomiar efektów. Skupiam się na automatyzacji procesów, cyfryzacji usług i poprawie doświadczenia klienta. Buduję interaktywne prototypy koncepcyjne samodzielnie w <strong>Claude Artifacts</strong> — bez angażowania developerów na etapie odkrywania.<br><br><strong>Wybrane doświadczenia:</strong> Bank Millennium – automatyzacja procesów operacyjnych · BNP Paribas – optymalizacja zdalnego otwierania konta · PKO BP Finat – rozwój usług i kampanii opartych na segmentacji · ZenCard – budowa działu od zera i <strong>800 tys. uczestników</strong> programu lojalnościowego<br><br><strong>Certyfikaty:</strong> PSPO II · PSPO I &nbsp;|&nbsp; <strong>Narzędzia:</strong> Jira · Confluence · Claude AI · Power BI · Dynatrace · Grafana','Product Manager with <strong>6+ years of experience</strong> in digital product development and electronic banking. I specialise in product strategy, roadmap and backlog management, and data-driven process optimisation. My career path reflects a consistent progression from building and managing sales and customer service teams to a Product Manager role in the banking sector — combining business and operational perspectives with product thinking.<br><br>I lead initiatives from identifying customer needs, through defining solutions and collaborating with IT and UX/UI teams, to implementation and impact measurement. I focus on process automation, service digitalisation and improving customer experience. I build interactive concept prototypes independently in <strong>Claude Artifacts</strong> — no dev involvement needed at discovery stage.<br><br><strong>Key experience:</strong> Bank Millennium – operational process automation · BNP Paribas – remote account opening optimisation · PKO BP Finat – services and campaigns based on customer segmentation · ZenCard – built department from scratch, <strong>800,000 loyalty programme members</strong><br><br><strong>Certifications:</strong> PSPO II · PSPO I &nbsp;|&nbsp; <strong>Tools:</strong> Jira · Confluence · Claude AI · Power BI · Dynatrace · Grafana'],
   'nav-exp':      ['Doświadczenie','Experience'],
   'nav-skills':   ['Umiejętności','Skills'],
   'nav-certs':    ['Certyfikaty','Certifications'],
@@ -277,7 +317,7 @@ var T = {
   'lbl-demo-sub': ['zbudowany w Claude Artifacts','built in Claude Artifacts'],
   'gate-label':   ['Ta sekcja jest chroniona hasłem','This section is password protected'],
   'gate-err':     ['Nieprawidłowe hasło','Incorrect password'],
-  'lbl-ai-section':['AI Workflow','AI Workflow'],
+  'lbl-chat-section': ['Zadaj mi pytanie','Ask me a question'],
   'ai1t':['Prototypowanie no-code','No-code prototyping'],
   'ai1b':['Buduję interaktywne prototypy koncepcyjne samodzielnie w Claude Artifacts — bez angażowania developerów na etapie odkrywania.','I build interactive concept prototypes independently in Claude Artifacts — no dev involvement needed at discovery stage.'],
   'ai2t':['Analiza danych z AI','AI-assisted data analysis'],
@@ -337,6 +377,11 @@ function switchLang() {
     if(en) en.style.display = isEN?'':'none';
   });
   // demo elements (only if unlocked)
+  // chat
+  var ci = document.getElementById('chat-input');
+  if(ci) ci.placeholder = isEN ? 'E.g. What is your experience with Agile?' : 'Np. Jakie masz doświadczenie z Agile?';
+  var cw = document.getElementById('chat-welcome');
+  if(cw) cw.textContent = isEN ? "Hi! I'm Daniel's virtual assistant. Feel free to ask about his experience, skills, projects or approach to work. 👋" : "Cześć! Jestem wirtualnym asystentem Daniela. Możesz zapytać mnie o jego doświadczenie, umiejętności, projekty lub podejście do pracy. 👋";
   var db = document.getElementById('demo-body');
   if(db && db.style.display !== 'none') {
     var demoT = {
@@ -436,6 +481,80 @@ document.getElementById('phone-eye-wrap').onclick=function(){
   document.getElementById('phone-eye').innerHTML=phoneVisible
     ?'<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/>'
     :'<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
+};
+
+var SYSTEM_PROMPT_PL = "Jesteś wirtualnym asystentem Daniela Forystka — Product Managera z ponad 6-letnim doświadczeniem w cyfrowych produktach finansowych. Odpowiadasz na pytania rekruterów i potencjalnych pracodawców w imieniu Daniela, używając pierwszej osoby (ja, moje, moje doświadczenie). Odpowiadaj zwięźle, profesjonalnie i ZAWSZE PO POLSKU niezależnie od języka pytania.\n\nINFORMACJE O DANIELU:\n- Product Manager / Product Owner z 6+ lat doświadczenia\n- Specjalizacja: bankowość elektroniczna, produkty cyfrowe, automatyzacja procesów\n- Bank Millennium (04.2025-obecnie): automatyzacja procesów, redukcja 2,5 etatu miesięcznie, cyfryzacja usług\n- BNP Paribas (06.2023-03.2025): optymalizacja otwierania konta (skrócenie o 20 sekund), customer journey\n- PKO BP Finat (08.2020-03.2023): kampanie marketingowe, segment SME, programy lojalnościowe\n- ZenCard (09.2017-07.2020): budowa działu od zera, 800 tys. uczestników programu lojalnościowego\n- Certyfikaty: PSPO II (2026), PSPO I (2024), Red Team Specialist, ISO 27001/9001\n- Narzędzia: JIRA, Confluence, Claude AI, Power BI, Dynatrace, Grafana, Pipedrive CRM\n- Umiejętności AI: Claude Artifacts, prompt engineering, RAG, MCP, SQL z LLM\n- Metodyki: Agile, Scrum, Kanban\n- Języki: polski (natywny), angielski (B2)\n- Lokalizacja: Warszawa\n\nJeśli pytanie dotyczy czegoś czego nie wiesz — odpowiedz że chętnie omówisz to podczas rozmowy.";
+
+var SYSTEM_PROMPT_EN = "You are a virtual assistant of Daniel Forystek — a Product Manager with 6+ years of experience in digital financial products. You answer questions from recruiters and potential employers on behalf of Daniel, using first person (I, my, my experience). Always respond in ENGLISH regardless of the language of the question.\n\nINFORMATION ABOUT DANIEL:\n- Product Manager / Product Owner with 6+ years of experience\n- Specialisation: electronic banking, digital products, process automation\n- Bank Millennium (Apr 2025-present): process automation, reducing workload by 2.5 FTEs/month, service digitalisation\n- BNP Paribas (Jun 2023-Mar 2025): account opening optimisation (20 seconds faster), customer journey\n- PKO BP Finat (Aug 2020-Mar 2023): marketing campaigns, SME segment, loyalty programmes\n- ZenCard (Sep 2017-Jul 2020): built department from scratch, 800,000 loyalty programme members\n- Certifications: PSPO II (2026), PSPO I (2024), Red Team Specialist, ISO 27001/9001\n- Tools: JIRA, Confluence, Claude AI, Power BI, Dynatrace, Grafana, Pipedrive CRM\n- AI skills: Claude Artifacts, prompt engineering, RAG, MCP, SQL with LLM\n- Methodologies: Agile, Scrum, Kanban\n- Languages: Polish (native), English (B2)\n- Location: Warsaw, Poland\n\nIf asked about something you don't know — say you'd be happy to discuss it during a call.";
+
+
+var chatHistory = [];
+
+function sendChat() {
+  var input = document.getElementById('chat-input');
+  var msg = input.value.trim();
+  if(!msg) return;
+  input.value = '';
+  var send = document.getElementById('chat-send');
+  send.disabled = true;
+
+  var messages = document.getElementById('chat-messages');
+  var userDiv = document.createElement('div');
+  userDiv.className = 'chat-msg user';
+  userDiv.textContent = msg;
+  messages.appendChild(userDiv);
+
+  var typingDiv = document.createElement('div');
+  typingDiv.className = 'chat-msg bot typing';
+  typingDiv.id = 'typing-indicator';
+  typingDiv.textContent = isEN ? 'Daniel is typing...' : 'Daniel pisze...';
+  messages.appendChild(typingDiv);
+  messages.scrollTop = messages.scrollHeight;
+
+  chatHistory.push({role:'user', content: msg});
+
+  fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      model: 'claude-sonnet-4-6',
+      max_tokens: 1000,
+      system: isEN ? SYSTEM_PROMPT_EN : SYSTEM_PROMPT_PL,
+      messages: chatHistory
+    })
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(data){
+    var reply = data.content && data.content[0] ? data.content[0].text : 'Przepraszam, spróbuj ponownie.';
+    chatHistory.push({role:'assistant', content: reply});
+    var typing = document.getElementById('typing-indicator');
+    if(typing) typing.remove();
+    var botDiv = document.createElement('div');
+    botDiv.className = 'chat-msg bot';
+    botDiv.textContent = reply;
+    messages.appendChild(botDiv);
+    messages.scrollTop = messages.scrollHeight;
+    send.disabled = false;
+    input.focus();
+  })
+  .catch(function(){
+    var typing = document.getElementById('typing-indicator');
+    if(typing) typing.remove();
+    var errDiv = document.createElement('div');
+    errDiv.className = 'chat-msg bot';
+    errDiv.textContent = 'Coś poszło nie tak. Spróbuj ponownie.';
+    messages.appendChild(errDiv);
+    send.disabled = false;
+  });
+}
+
+function downloadPDF() {
+  window.print();
+}
+
+document.getElementById('dark-toggle').onclick = function() {
+  this.classList.toggle('en');
+  document.body.classList.toggle('dark');
 };
 
 document.getElementById('lang-toggle').onclick=function(){
