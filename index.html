@@ -410,8 +410,6 @@ var T = {
 'lbl-llm-section': ['Demo — Wiedza o modelach','Demo — LLM Knowledge'],
 'lbl-llm-sub': ['prompt engineering w praktyce','prompt engineering in practice'],
   'lbl-demo-sub': ['zbudowany w Claude Artifacts','built in Claude Artifacts'],
-  'gate-label':   ['Ta sekcja jest chroniona hasłem','This section is password protected'],
-  'gate-err':     ['Nieprawidłowe hasło','Incorrect password'],
   'lbl-chat-section': ['Zadaj mi pytanie','Ask me a question'],
   'ai1t':['Prototypowanie no-code','No-code prototyping'],
   'ai1b':['Buduję interaktywne prototypy koncepcyjne samodzielnie w Claude Artifacts — bez angażowania developerów na etapie odkrywania.','I build interactive concept prototypes independently in Claude Artifacts — no dev involvement needed at discovery stage.'],
@@ -584,77 +582,23 @@ function initDemoToggles() {
       var w = sec ? sec.querySelector('.demo-wrap') : null;
 
       if(!open) {
-        // show password prompt
-        showDemoPassword(sid, w, btn);
+        // expand
+        if(w) w.style.display = '';
+        if(sid === 'demo') doDemo();
+        this.textContent = '− zwiń';
+        this.setAttribute('data-open', 'true');
       } else {
         // collapse
         if(w) w.style.display = 'none';
         this.textContent = '+ rozwiń';
         this.setAttribute('data-open', 'false');
-        // remove password overlay if exists
-        var overlay = sec.querySelector('.demo-pwd-overlay');
-        if(overlay) overlay.remove();
       }
     };
     label.appendChild(btn);
   });
 }
 
-function showDemoPassword(id, wrap, btn) {
-  var section = document.getElementById(id);
-  if(!section) return;
-
-  // remove existing overlay
-  var existing = section.querySelector('.demo-pwd-overlay');
-  if(existing) existing.remove();
-
-  var overlay = document.createElement('div');
-  overlay.className = 'demo-pwd-overlay';
-  overlay.style.cssText = 'background:var(--c-surface);border:1px solid var(--c-border);border-radius:16px;padding:2rem 1.5rem;text-align:center;margin-top:1rem';
-  overlay.innerHTML = '<div style="font-size:28px;margin-bottom:.5rem">🔒</div>'
-    + '<p style="font-size:13px;color:var(--c-muted);margin-bottom:1rem" id="pwd-label-'+id+'">' + (isEN ? 'This section is password protected' : 'Ta sekcja jest chroniona hasłem') + '</p>'
-    + '<input type="password" placeholder="••••" maxlength="4" id="pwd-input-'+id+'"'
-    + ' style="width:100px;text-align:center;font-size:18px;letter-spacing:.4em;padding:8px 12px;border:1.5px solid var(--c-border);border-radius:8px;font-family:inherit;display:block;margin:0 auto 8px">'
-    + '<span id="pwd-err-'+id+'" style="font-size:12px;color:#E24B4A;display:none">' + (isEN ? 'Incorrect password' : 'Nieprawidłowe hasło') + '</span>';
-
-  section.appendChild(overlay);
-
-  var input = document.getElementById('pwd-input-'+id);
-  input.focus();
-  input.addEventListener('input', function() {
-    if(this.value === '4444') {
-      overlay.remove();
-if(wrap) wrap.style.display = '';
-if(id === 'demo') doDemo();
-      btn.textContent = '− zwiń';
-      btn.setAttribute('data-open', 'true');
-    } else if(this.value.length === 4) {
-      document.getElementById('pwd-err-'+id).style.display = 'block';
-    } else {
-      document.getElementById('pwd-err-'+id).style.display = 'none';
-    }
-  });
-}
-
-
 initDemoToggles();
-function unlockDemo(val) {
-  if(val === '4444') {
-    var btn = document.querySelector('[data-id="demo"]');
-    if(btn) {
-      var gate = document.getElementById('demo-gate');
-      if(gate) gate.style.display = 'none';
-      document.getElementById('demo-body').style.display = 'block';
-      btn.textContent = '− zwiń';
-      btn.setAttribute('data-open', 'true');
-    }
-    doDemo();
-  } else if(val.length === 4) {
-    document.getElementById('demo-err').style.display = 'block';
-  } else {
-    document.getElementById('demo-err').style.display = 'none';
-  }
-}
 
 function navTo(id) {
   var el = document.getElementById(id);
