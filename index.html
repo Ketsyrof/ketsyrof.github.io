@@ -204,7 +204,6 @@ footer{border-top:1px solid var(--c-border);text-align:center;padding:2rem;font-
       </div>
       <div class="demo-bottom" id="demo-out"></div>
     </div>
-  </div>
 </section>
 
 <section id="retention-demo">
@@ -589,14 +588,7 @@ function initDemoToggles() {
         showDemoPassword(sid, w, btn);
       } else {
         // collapse
-        if(sid === 'demo') {
-          var g = document.getElementById('demo-gate');
-          var b = document.getElementById('demo-body');
-          if(g) g.style.display = 'none';
-          if(b) b.style.display = 'none';
-        } else {
-          if(w) w.style.display = 'none';
-        }
+        if(w) w.style.display = 'none';
         this.textContent = '+ rozwiń';
         this.setAttribute('data-open', 'false');
         // remove password overlay if exists
